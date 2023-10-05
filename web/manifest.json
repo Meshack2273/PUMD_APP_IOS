@@ -1,6 +1,6 @@
 {
-  "name": "pumd_app_2",
-  "short_name": "pumd_app_2",
+  "name": "pumd_app_ios",
+  "short_name": "pumd_app_ios",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",

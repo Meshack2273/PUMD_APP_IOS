@@ -4,26 +4,26 @@ import 'package:hexcolor/hexcolor.dart';
 
 // import 'package:pdf/pdf.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:pumd_app/core/utils/Model.dart';
+import 'package:pumd_app_ios/core/utils/Model.dart';
 
 // import 'package:pdfx/pdfx.dart';
 import 'dart:io';
-import 'package:pumd_app/presentation/frame_four_screen/frame_four_screen.dart';
-import 'package:pumd_app/staticVariable.dart';
-import 'package:pumd_app/presentation/frame_two_screen/frame_two_screen.dart';
-import 'package:pumd_app/core/app_export.dart';
+import 'package:pumd_app_ios/presentation/frame_four_screen/frame_four_screen.dart';
+import 'package:pumd_app_ios/staticVariable.dart';
+import 'package:pumd_app_ios/presentation/frame_two_screen/frame_two_screen.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
-import 'package:pumd_app/presentation/frame_four_screen/frame_four_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_four_screen/frame_four_screen.dart'
     as ScreenFour;
-import 'package:pumd_app/widgets/loding_Scren.dart' as load;
+import 'package:pumd_app_ios/widgets/loding_Scren.dart' as load;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../ApiCall.dart';
-import 'package:pumd_app/presentation/frame_two_screen/frame_two_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_two_screen/frame_two_screen.dart'
     as ScreenTwo;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';

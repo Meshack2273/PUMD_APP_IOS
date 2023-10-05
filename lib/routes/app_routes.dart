@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pumd_app/presentation/frame_one_screen/frame_one_screen.dart';
-import 'package:pumd_app/presentation/frame_two_screen/frame_two_screen.dart';
+import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart';
+import 'package:pumd_app_ios/presentation/frame_two_screen/frame_two_screen.dart';
 
-// import 'package:pumd_app/presentation/frame_three_screen/frame_three_screen.dart';
-import 'package:pumd_app/presentation/frame_five_screen/frame_five_screen.dart';
-import 'package:pumd_app/presentation/frame_four_screen/frame_four_screen.dart';
-import 'package:pumd_app/presentation/app_navigation_screen/app_navigation_screen.dart';
-import 'package:pumd_app/widgets/loding_Scren.dart';
-import 'package:pumd_app/widgets/loding_ScrenWithTime.dart';
-import 'package:pumd_app/presentation/Initial Screens/Home.dart';
-import 'package:pumd_app/presentation/Initial Screens/Login.dart';
+// import 'package:pumd_app_ios/presentation/frame_three_screen/frame_three_screen.dart';
+import 'package:pumd_app_ios/presentation/frame_five_screen/frame_five_screen.dart';
+import 'package:pumd_app_ios/presentation/frame_four_screen/frame_four_screen.dart';
+import 'package:pumd_app_ios/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:pumd_app_ios/widgets/loding_Scren.dart';
+import 'package:pumd_app_ios/widgets/loding_ScrenWithTime.dart';
+import 'package:pumd_app_ios/presentation/Initial Screens/Home.dart';
+import 'package:pumd_app_ios/presentation/Initial Screens/Login.dart';
 import '../presentation/frame_three_screen/pdfScreen.dart';
 import '../staticVariable.dart';
 

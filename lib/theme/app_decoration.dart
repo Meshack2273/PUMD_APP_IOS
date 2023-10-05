@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pumd_app/core/app_export.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AppDecoration {

@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:pumd_app/ApiCall.dart';
-import 'package:pumd_app/core/app_export.dart';
-import 'package:pumd_app/staticVariable.dart';
+import 'package:pumd_app_ios/ApiCall.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
+import 'package:pumd_app_ios/staticVariable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pumd_app/presentation/frame_six_dialog/frame_six_dialog.dart';
+import 'package:pumd_app_ios/presentation/frame_six_dialog/frame_six_dialog.dart';
 import 'package:flutter/services.dart';
-import 'package:pumd_app/presentation/frame_one_screen/frame_one_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart'
     as screnone;
-import 'package:pumd_app/presentation/frame_four_screen/frame_four_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_four_screen/frame_four_screen.dart'
     as screnfour;
 import 'package:hexcolor/hexcolor.dart';
 

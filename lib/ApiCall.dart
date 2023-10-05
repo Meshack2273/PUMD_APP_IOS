@@ -4,14 +4,14 @@ import 'dart:core';
 import 'dart:io';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:pumd_app/staticVariable.dart';
+import 'package:pumd_app_ios/staticVariable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pumd_app/presentation/frame_one_screen/frame_one_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart'
     as ScreenOne;
 import 'dart:convert';
-import 'package:pumd_app/presentation/frame_four_screen/frame_four_screen.dart'
+import 'package:pumd_app_ios/presentation/frame_four_screen/frame_four_screen.dart'
     as ScreenFour;
 import 'package:path_provider/path_provider.dart';
 

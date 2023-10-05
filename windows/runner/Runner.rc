@@ -94,12 +94,12 @@ BEGIN
 BEGIN
         VALUE
 "CompanyName", "com.example" "\0"
-VALUE "FileDescription", "pumd_app_2" "\0"
+VALUE "FileDescription", "pumd_app_ios" "\0"
 VALUE "FileVersion", VERSION_AS_STRING "\0"
-VALUE "InternalName", "pumd_app_2" "\0"
+VALUE "InternalName", "pumd_app_ios" "\0"
 VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-VALUE "OriginalFilename", "pumd_app_2.exe" "\0"
-VALUE "ProductName", "pumd_app_2" "\0"
+VALUE "OriginalFilename", "pumd_app_ios.exe" "\0"
+VALUE "ProductName", "pumd_app_ios" "\0"
 VALUE "ProductVersion", VERSION_AS_STRING "\0"
 END
         END

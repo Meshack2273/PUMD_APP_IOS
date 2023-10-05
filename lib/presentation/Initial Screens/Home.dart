@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:pumd_app/routes/app_routes.dart';
+import 'package:pumd_app_ios/routes/app_routes.dart';
 
 import '../../core/utils/image_constant.dart';
 

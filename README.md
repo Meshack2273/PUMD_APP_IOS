@@ -1,4 +1,4 @@
-# pumd_app_2
+# pumd_app_ios
 
 A new Flutter project.
 

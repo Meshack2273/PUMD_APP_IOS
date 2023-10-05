@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:pumd_app/staticVariable.dart';
+import 'package:pumd_app_ios/staticVariable.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'ApiCall.dart';

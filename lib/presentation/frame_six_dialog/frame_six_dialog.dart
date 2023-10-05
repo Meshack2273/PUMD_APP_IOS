@@ -1,4 +1,4 @@
-import 'package:pumd_app/core/app_export.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 // ignore_for_file: must_be_immutable

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:pumd_app/presentation/frame_three_screen/pdfScreen.dart';
+import 'package:pumd_app_ios/presentation/frame_three_screen/pdfScreen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

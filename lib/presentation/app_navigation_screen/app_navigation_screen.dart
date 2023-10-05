@@ -1,6 +1,6 @@
-import 'package:pumd_app/core/app_export.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/material.dart';
-import 'package:pumd_app/presentation/frame_six_dialog/frame_six_dialog.dart';
+import 'package:pumd_app_ios/presentation/frame_six_dialog/frame_six_dialog.dart';
 
 class AppNavigationScreen extends StatelessWidget {
   @override

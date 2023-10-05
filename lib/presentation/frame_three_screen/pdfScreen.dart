@@ -7,13 +7,13 @@ import 'package:pdfx/pdfx.dart';
 
 // import 'package:pdf/pdf.dart';
 import 'package:pdf_text/pdf_text.dart';
-import 'package:pumd_app/ApiCall.dart';
-import 'package:pumd_app/core/app_export.dart';
+import 'package:pumd_app_ios/ApiCall.dart';
+import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:pumd_app/presentation/frame_one_screen/frame_one_screen.dart';
+import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart';
 // import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../staticVariable.dart';
