@@ -40,7 +40,7 @@ android {
         applicationId "com.example.pumd_app_2"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 19
+        minSdkVersion 28
         multiDexEnabled true
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
