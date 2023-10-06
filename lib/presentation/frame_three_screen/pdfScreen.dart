@@ -4,9 +4,6 @@ import 'dart:isolate';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pdfx/pdfx.dart';
-
-// import 'package:pdf/pdf.dart';
-import 'package:pdf_text/pdf_text.dart';
 import 'package:pumd_app_ios/ApiCall.dart';
 import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
@@ -181,7 +178,7 @@ class _PDFScreenState extends State<PDFScreen> {
                                   clickbutton.onPressed?.call();
                                   try {
                                     StaticControler.defaultpage =
-                                        await searchText();
+                                        1;
                                     streamControllerForPageInc
                                         .add(StaticControler.defaultpage + 1);
                                     streamControllerForTextFound.add(200);
@@ -456,31 +453,31 @@ pageno() {
   }
 }
 
-searchText() async {
-  StaticControler.Allpages = [];
-  final document = await PDFDoc.fromPath(StaticControler.localPath);
-  // final document = await PDFDoc.fromURL("https://icseindia.org/document/sample.pdf");
-  final pageCount = document.length;
-  String result = '';
-
-  for (var i = 0; i < pageCount; i++) {
-    final page = await document.pageAt(i + 1);
-    final pageText = await page.text;
-    print("text of pdf ${pageText}");
-
-    if (pageText.contains(SearchText.text)) {
-      result += '${i}|';
-      StaticControler.Allpages.add(i);
-    }
-  }
-  print("result of page number is $result");
-  print("All pages where text available ${StaticControler.Allpages[0]}");
-  print(
-      "return data ${StaticControler.Allpages[0]},${StaticControler.Allpages[0].runtimeType}");
-  final resultint = await StaticControler.Allpages[0];
-  print("return data $resultint,${resultint.runtimeType}");
-  return resultint;
-}
+// searchText() async {
+//   StaticControler.Allpages = [];
+//   final document = await PDFDoc.fromPath(StaticControler.localPath);
+//   // final document = await PDFDoc.fromURL("https://icseindia.org/document/sample.pdf");
+//   final pageCount = document.length;
+//   String result = '';
+//
+//   for (var i = 0; i < pageCount; i++) {
+//     final page = await document.pageAt(i + 1);
+//     final pageText = await page.text;
+//     print("text of pdf ${pageText}");
+//
+//     if (pageText.contains(SearchText.text)) {
+//       result += '${i}|';
+//       StaticControler.Allpages.add(i);
+//     }
+//   }
+//   print("result of page number is $result");
+//   print("All pages where text available ${StaticControler.Allpages[0]}");
+//   print(
+//       "return data ${StaticControler.Allpages[0]},${StaticControler.Allpages[0].runtimeType}");
+//   final resultint = await StaticControler.Allpages[0];
+//   print("return data $resultint,${resultint.runtimeType}");
+//   return resultint;
+// }
 
 invalidOTP(context) {
   showCupertinoDialog(

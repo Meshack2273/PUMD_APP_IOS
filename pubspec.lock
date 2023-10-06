@@ -576,13 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.10.4"
-  pdf_text:
-    dependency: "direct main"
-    description:
-      path: flutter-pdf-text-master
-      relative: true
-    source: path
-    version: "0.5.0"
   pdfx:
     dependency: "direct main"
     description:
