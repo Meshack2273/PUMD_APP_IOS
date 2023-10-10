@@ -128,87 +128,86 @@ class _PDFScreenState extends State<PDFScreen> {
                 padding:
                     EdgeInsets.only(top: 20, right: 20, left: 30, bottom: 5),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Flexible(
-                      child: Container(
-                        width: 160,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(32.0),
-                          elevation: 20.0,
-                          shadowColor: Colors.grey,
-                          child: TextFormField(
-                            inputFormatters: [NoLeadingSpaceFormatter()],
-                            controller: SearchText,
-                            decoration: InputDecoration(
-                              hintText: 'Search...',
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(16.0, 12.0, 48.0, 12.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32.0),
-                              ),
-                              suffixIcon: GestureDetector(
-                                child: Icon(Icons.search),
-                                onTap: () async {
-                                  if (SearchText.text == "") {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: const Text(
-                                        "Enter any text to search 😕",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      backgroundColor: HexColor("#ee3124"),
-                                      elevation: 10,
-                                      behavior: SnackBarBehavior.floating,
-                                      margin: EdgeInsets.all(5),
-                                    ));
-                                    return null;
-                                  }
-                                  i = 1;
-                                  j = 0;
-                                  print(
-                                      "increment ${StaticControler.integerforpdf}");
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              lodingScreenWithTime()));
-
-                                  print("clicked");
-                                  clickbutton.onPressed?.call();
-                                  try {
-                                    StaticControler.defaultpage =
-                                        1;
-                                    streamControllerForPageInc
-                                        .add(StaticControler.defaultpage + 1);
-                                    streamControllerForTextFound.add(200);
-                                    streamController.add(1);
-                                    Navigator.pop(context);
-                                    jumpto();
-                                  } catch (e) {
-                                    print(e);
-                                    StaticControler.defaultpage = 500;
-                                    streamControllerForPageInc
-                                        .add(pdfController.page);
-                                    streamControllerForTextFound.add(500);
-                                    streamController.add(0);
-                                    Navigator.pop(context);
-                                  }
-
-                                  // streamController.add(await StaticControler.defaultpage);
-                                  // streamController.add(await  StaticControler.defaultpage);
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    //Search bar
+                    // Flexible(
+                    //   child: Container(
+                    //     width: 160,
+                    //     child: Material(
+                    //       borderRadius: BorderRadius.circular(32.0),
+                    //       elevation: 20.0,
+                    //       shadowColor: Colors.grey,
+                    //       child: TextFormField(
+                    //         inputFormatters: [NoLeadingSpaceFormatter()],
+                    //         controller: SearchText,
+                    //         decoration: InputDecoration(
+                    //           hintText: 'Search...',
+                    //           contentPadding:
+                    //               EdgeInsets.fromLTRB(16.0, 12.0, 48.0, 12.0),
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(32.0),
+                    //           ),
+                    //           suffixIcon: GestureDetector(
+                    //             child: Icon(Icons.search),
+                    //             onTap: () async {
+                    //               if (SearchText.text == "") {
+                    //                 ScaffoldMessenger.of(context)
+                    //                     .showSnackBar(SnackBar(
+                    //                   content: const Text(
+                    //                     "Enter any text to search 😕",
+                    //                     style: TextStyle(
+                    //                         fontWeight: FontWeight.bold),
+                    //                   ),
+                    //                   backgroundColor: HexColor("#ee3124"),
+                    //                   elevation: 10,
+                    //                   behavior: SnackBarBehavior.floating,
+                    //                   margin: EdgeInsets.all(5),
+                    //                 ));
+                    //                 return null;
+                    //               }
+                    //               i = 1;
+                    //               j = 0;
+                    //               print(
+                    //                   "increment ${StaticControler.integerforpdf}");
+                    //               Navigator.push(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                       builder: (context) =>
+                    //                           lodingScreenWithTime()));
+                    //
+                    //               print("clicked");
+                    //               clickbutton.onPressed?.call();
+                    //               try {
+                    //                 StaticControler.defaultpage =
+                    //                     1;
+                    //                 streamControllerForPageInc
+                    //                     .add(StaticControler.defaultpage + 1);
+                    //                 streamControllerForTextFound.add(200);
+                    //                 streamController.add(1);
+                    //                 Navigator.pop(context);
+                    //                 jumpto();
+                    //               } catch (e) {
+                    //                 print(e);
+                    //                 StaticControler.defaultpage = 500;
+                    //                 streamControllerForPageInc
+                    //                     .add(pdfController.page);
+                    //                 streamControllerForTextFound.add(500);
+                    //                 streamController.add(0);
+                    //                 Navigator.pop(context);
+                    //               }
+                    //
+                    //               // streamController.add(await StaticControler.defaultpage);
+                    //               // streamController.add(await  StaticControler.defaultpage);
+                    //             },
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
-                      width: 150,
+                      width: 250,
                       height: 50,
                       child: Material(
                         borderRadius: BorderRadius.circular(32.0),
@@ -232,6 +231,7 @@ class _PDFScreenState extends State<PDFScreen> {
                           }).toList(),
 
                           onChanged: (newValue) async {
+                            pdfController.jumpToPage(1);
                             Navigator.pushNamed(context, AppRoutes.loding);
                             StaticControler.Language = newValue;
                             print("language ${StaticControler.Language}");
@@ -338,44 +338,82 @@ class _PDFScreenState extends State<PDFScreen> {
                                             "${snapshotTotalpage.data ?? "..."}",
                                           );
                                         }),
-                                    SizedBox(width: 145),
+                                    SizedBox(width: 130),
                                     Flexible(
                                         child: Padding(
                                       padding: EdgeInsets.only(),
                                       child: SizedBox(
                                           width: 51,
                                           child: // <-- match_parent
-                                              TextButton.icon(
+
+                                          IconButton(
                                             onPressed: () async {
+
+                                              pdfController
+                                                  .jumpToPage(pdfController.page-1);
                                               // int  increement=0;
                                               // int inc=increement+1;
-                                              try {
-                                                final nextpage =
-                                                    await StaticControler
-                                                        .Allpages[i++];
-                                                print("i value is $i");
-                                                print(
-                                                    "value passing to snap is ${i - 1}");
-                                                print(
-                                                    "page going  to jump is ${nextpage + 1}");
-                                                streamControllerForPreviousPage
-                                                    .add(i - 1);
-                                                pdfController
-                                                    .jumpToPage(nextpage + 1);
-                                              } catch (e) {
-                                                print(e);
-                                                i = 1;
-                                              }
+                                              // try {
+                                              //   final nextpage =
+                                              //       await StaticControler
+                                              //           .Allpages[i++];
+                                              //   print("i value is $i");
+                                              //   print(
+                                              //       "value passing to snap is ${i - 1}");
+                                              //   print(
+                                              //       "page going  to jump is ${nextpage + 1}");
+                                              //   streamControllerForPreviousPage
+                                              //       .add(i - 1);
+                                              //   pdfController
+                                              //       .jumpToPage(nextpage + 1);
+                                              // } catch (e) {
+                                              //   print(e);
+                                              //   i = 1;
+                                              // }
                                             },
                                             icon: const Icon(
-                                              Icons.arrow_circle_down_outlined,
+                                              Icons.arrow_circle_up_outlined,
                                               textDirection: TextDirection.ltr,
                                               size: 27,
                                               weight: 10,
                                             ),
-                                            label: Text(""),
-                                          )),
-                                    ))
+                                          )
+                                      ),
+
+                                    )),
+                              IconButton(
+                                onPressed: () async {
+
+                                  pdfController
+                                      .jumpToPage(pdfController.page+1);
+                                  print("increment value  $i");
+                                  // int  increement=0;
+                                  // int inc=increement+1;
+                                  // try {
+                                  //   final nextpage =
+                                  //       await StaticControler
+                                  //           .Allpages[i++];
+                                  //   print("i value is $i");
+                                  //   print(
+                                  //       "value passing to snap is ${i - 1}");
+                                  //   print(
+                                  //       "page going  to jump is ${nextpage + 1}");
+                                  //   streamControllerForPreviousPage
+                                  //       .add(i - 1);
+                                  //   pdfController
+                                  //       .jumpToPage(nextpage + 1);
+                                  // } catch (e) {
+                                  //   print(e);
+                                  //   i = 1;
+                                  // }
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_circle_down_outlined,
+                                  textDirection: TextDirection.ltr,
+                                  size: 27,
+                                  weight: 10,
+                                ),
+                              )
                                   ]);
                           });
                     }),

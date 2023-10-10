@@ -99,7 +99,17 @@ class _State extends State<FrameOneScreen> {
   getConnectivity() async {
     if (fabNum.text == await storage.read(key: fabNum.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("You can Open PDF Directly")));
+
+        SnackBar(
+            behavior: SnackBarBehavior.floating,
+              backgroundColor: HexColor("#ee3124"),
+                shape:  const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                elevation: 20,
+                content: const Text("Now you can open manual without OTP",style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center,)
+          ),
+
+      );
       streamControllerOTPorPDF.add("Open PDF");
     } else {
       streamControllerOTPorPDF.add("Send OTP");
@@ -181,20 +191,55 @@ class _State extends State<FrameOneScreen> {
           } catch (e) {
             print(e);
           }
+          try {
+            final token = await ApiCall.GetToc();
 
-          StaticControler.localPath = await ApiCall.loadPDF();
-          totalpage = await pdfController.pagesCount;
+            if (token == "Connection Failed"
+                || token == "Service Unavailable"
+                || token == "Connection Timeout"
+                || token == "Not Found"
+                || token == "Proxy Error") {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "$token",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: HexColor("#ee3124"),
+                elevation: 10,
+                behavior: SnackBarBehavior.floating,
+                margin: EdgeInsets.all(5),
+              ));
+            }
+            else
+              {
+                StaticControler.localPath = await ApiCall.loadPDF();
+                totalpage = await pdfController.pagesCount;
 
-          pdfController = PdfController(
-            document: PdfDocument.openFile(StaticControler.localPath),
-          );
-          print("show pdf");
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PDFScreen(),
-            ),
-          );
+                pdfController = PdfController(
+                  document: PdfDocument.openFile(StaticControler.localPath),
+                );
+                print("show pdf");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PDFScreen(),
+                  ),
+                );
+              }
+          }catch(e){
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                "$e",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: HexColor("#ee3124"),
+              elevation: 10,
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.all(5),
+            ));
+          }
+
+
         } else {
           try {
             print("fabnumber from pdf screen ${storage.read(key: value)}");
@@ -207,11 +252,25 @@ class _State extends State<FrameOneScreen> {
               ConnectionTimeoutDialog();
             } else if (EmailOtp == "Service Unavailable") {
               ServiceUnAvilableDialog();
-            } else if (EmailOtp == "Not Found") {
+            }
+            else if (EmailOtp == "Not Found") {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: const Text(
                   "404 Not Found Try Again Later",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: HexColor("#ee3124"),
+                elevation: 10,
+                behavior: SnackBarBehavior.floating,
+                margin: EdgeInsets.all(5),
+              ));
+            }
+            else if (EmailOtp == "Proxy Error") {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: const Text(
+                  "Proxy Error Please Try Again Later",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 backgroundColor: HexColor("#ee3124"),
@@ -246,8 +305,9 @@ class _State extends State<FrameOneScreen> {
             return fabnull();
           } else {
             onStay(context);
-            // BoolNoTLod();
-            Alert();
+            if(EmailOtp.runtimeType!=String) {
+              Alert();
+            }
           }
 
           // );
@@ -470,27 +530,53 @@ class _State extends State<FrameOneScreen> {
                                                   } catch (e) {
                                                     print(e);
                                                   }
+                                                  try {
+                                                    final token = await ApiCall.GetToc();
 
-                                                  StaticControler.localPath =
-                                                      await ApiCall.loadPDF();
-                                                  totalpage =
-                                                      await pdfController
-                                                          .pagesCount;
+                                                    if (token == "Connection Failed"
+                                                        || token == "Service Unavailable"
+                                                        || token == "Connection Timeout"
+                                                        || token == "Not Found"
+                                                        || token == "Proxy Error") {
+                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                        content: Text(
+                                                          "$token",
+                                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                                        ),
+                                                        backgroundColor: HexColor("#ee3124"),
+                                                        elevation: 10,
+                                                        behavior: SnackBarBehavior.floating,
+                                                        margin: EdgeInsets.all(5),
+                                                      ));
+                                                    }
+                                                    else
+                                                    {
+                                                      StaticControler.localPath = await ApiCall.loadPDF();
+                                                      totalpage = await pdfController.pagesCount;
 
-                                                  pdfController = PdfController(
-                                                    document:
-                                                        PdfDocument.openFile(
-                                                            StaticControler
-                                                                .localPath),
-                                                  );
-                                                  print("show pdf");
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PDFScreen(),
-                                                    ),
-                                                  );
+                                                      pdfController = PdfController(
+                                                        document: PdfDocument.openFile(StaticControler.localPath),
+                                                      );
+                                                      print("show pdf");
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) => PDFScreen(),
+                                                        ),
+                                                      );
+                                                    }
+                                                  }catch(e){
+                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                      content: Text(
+                                                        "$e",
+                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                      ),
+                                                      backgroundColor: HexColor("#ee3124"),
+                                                      elevation: 10,
+                                                      behavior: SnackBarBehavior.floating,
+                                                      margin: EdgeInsets.all(5),
+                                                    ));
+                                                  }
                                                 } else {
                                                   print(
                                                       "fabnumber from pdf screen ${await storage.read(key: fabNum.text)}");
@@ -533,6 +619,19 @@ class _State extends State<FrameOneScreen> {
                                                             EdgeInsets.all(5),
                                                       ));
                                                     }
+                                                    else if (EmailOtp == "Proxy Error") {
+                                                      Navigator.pop(context);
+                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                        content: const Text(
+                                                          "Proxy Error Please Try Again Later",
+                                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                                        ),
+                                                        backgroundColor: HexColor("#ee3124"),
+                                                        elevation: 10,
+                                                        behavior: SnackBarBehavior.floating,
+                                                        margin: EdgeInsets.all(5),
+                                                      ));
+                                                    }
                                                   } on SocketException catch (e) {
                                                     print("OtpTrig $e");
                                                     if (e.toString() ==
@@ -552,6 +651,7 @@ class _State extends State<FrameOneScreen> {
                                                       OTPConectionTimeOutDialog();
                                                     }
                                                   }
+
                                                   // EmailOtp = await ApiCall.otpTrig();
                                                   print(
                                                       "${EmailOtp[3]}  if state");
@@ -572,8 +672,9 @@ class _State extends State<FrameOneScreen> {
                                                     return fabnull();
                                                   } else {
                                                     onStay(context);
-                                                    // BoolNoTLod();
-                                                    Alert();
+                                                    if(EmailOtp.runtimeType!=String) {
+                                                      Alert();
+                                                    }
                                                   }
                                                 }
                                               }

@@ -92,6 +92,10 @@ class ApiCall {
       } else if (token == "Not Found") {
         return "Not Found";
       }
+      else if (token == "Proxy Error")
+        {
+          return "Proxy Error";
+        }
     } catch (e) {
       print("Login GetToken Exception $e");
       return "Connection Exception";
