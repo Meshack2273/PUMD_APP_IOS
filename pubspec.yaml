@@ -37,7 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   connectivity_plus:
-  syncfusion_flutter_pdfviewer:
+#  syncfusion_flutter_pdfviewer:
   flutter_barcode_scanner:
   flutter_pdfview:
   pdfx:
