@@ -443,10 +443,7 @@ class ApiCall {
       print(response.reasonPhrase);
     }
   }
-hi()
-{
 
-}
 // static PriEmail()async{
 //   //late List priEmail= ApiCall.otpTrig().tolist;
 //   return await otpTrig();
