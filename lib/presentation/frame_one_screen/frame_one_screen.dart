@@ -28,7 +28,6 @@ import 'package:pumd_app_ios/presentation/frame_two_screen/frame_two_screen.dart
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
-import '../../PDF_SYC.dart';
 import '../frame_three_screen/pdfScreen.dart';
 
 // import '../frame_three_screen/pdfScreenSpecificTime.dart'as pdfTime;
