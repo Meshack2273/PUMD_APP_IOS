@@ -10,6 +10,7 @@ import 'package:pumd_app_ios/widgets/loding_Scren.dart';
 import 'package:pumd_app_ios/widgets/loding_ScrenWithTime.dart';
 import 'package:pumd_app_ios/presentation/Initial Screens/Home.dart';
 import 'package:pumd_app_ios/presentation/Initial Screens/Login.dart';
+import '../presentation/Initial Screens/Splash Screen.dart';
 import '../presentation/frame_three_screen/pdfScreen.dart';
 import '../staticVariable.dart';
 
@@ -24,6 +25,8 @@ class AppRoutes {
 
   static const String frameFiveScreen = '/frame_five_screen';
 
+  static const String Splashscreen = '/Splash Screen';
+
   static const String frameFourScreen = '/frame_four_screen';
 
   static const String appNavigationScreen = '/app_navigation_screen';
@@ -35,6 +38,7 @@ class AppRoutes {
   static const String pdfScreen = "/pdfScreen";
 
   static Map<String, WidgetBuilder> routes = {
+    Splashscreen:(ctx)=>SplashScreen(),
     home: (context) => Home(),
     login: (context) => Login(),
     loding: (context) => lodingScreen(),

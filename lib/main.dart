@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       title: 'pumd_app_ios',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.frameOneScreen,
+      initialRoute: AppRoutes.Splashscreen,
       routes: AppRoutes.routes,
     );
   }
