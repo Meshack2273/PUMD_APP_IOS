@@ -62,21 +62,71 @@ class _SplashScreenState extends State<SplashScreen> {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(left: 45),
-                            child: AnimatedTextKit(
-                              repeatForever: true,
-                              animatedTexts: [
-                                FadeAnimatedText('ELGI',
-                                  // textStyle: GoogleFonts.getFont(
-                                  //     'Bebas Neue',
-                                  textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 66),
-                                  // speed: Duration(seconds: 5  )
+                            child: Wrap(
+                              children: [
+                                AnimatedTextKit(
+                                  repeatForever: true,
+                                  animatedTexts: [
+                                    FadeAnimatedText('ELG',
+                                      // textStyle: GoogleFonts.getFont(
+                                      //     'Bebas Neue',
+                                      textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 66),
+                                      // speed: Duration(seconds: 5  )
+                                    ),
+
+                                  ],
+                                  onTap: () {
+                                    print("Tap Event");
+                                  },
+                                ),
+                                Stack(
+
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5,left: 1),
+                                      child: AnimatedTextKit(
+                                        repeatForever: true,
+                                        animatedTexts: [
+                                          FadeAnimatedText('■',
+
+                                            textStyle:
+
+                                            GoogleFonts.getFont(
+                                                'Bebas Neue',
+                                                textStyle: TextStyle(color:HexColor("#ee3115") ),fontSize: 17),
+                                            // speed: Duration(seconds: 5  )
+                                          ),
+
+                                        ],
+                                        onTap: () {
+                                          print("Tap Event");
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 7),
+                                      child: AnimatedTextKit(
+                                        repeatForever: true,
+                                        animatedTexts: [
+                                          FadeAnimatedText('𝗜',
+                                            // textStyle: GoogleFonts.getFont(
+                                            //     'Bebas Neue',
+                                            textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 49),
+                                            // speed: Duration(seconds: 5  )
+                                          ),
+
+                                        ],
+                                        onTap: () {
+                                          print("Tap Event");
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
 
                               ],
-                              onTap: () {
-                                print("Tap Event");
-                              },
                             ),
+
                           ),
                         ),
                         AnimatedTextKit(
@@ -108,16 +158,16 @@ class _SplashScreenState extends State<SplashScreen> {
                         color: HexColor("#bbb8b8"),
                       ),
                     ),
-                    Positioned(
-                      bottom: 79,
-                      left: 166,
-                      right: 51,
-
-                      child: Container(
-                        height: 8.7,
-                        color: HexColor("#ee3124"),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 79,
+                    //   left: 166,
+                    //   right: 51,
+                    //
+                    //   child: Container(
+                    //     height: 8.7,
+                    //     color: HexColor("#ee3124"),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
