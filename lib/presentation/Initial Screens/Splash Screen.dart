@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3),
+    Timer(Duration(seconds: 10000),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5,left: 1),
+                                      padding: const EdgeInsets.only(top: 10,left: 1),
                                       child: AnimatedTextKit(
                                         repeatForever: true,
                                         animatedTexts: [
@@ -93,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                                             GoogleFonts.getFont(
                                                 'Bebas Neue',
-                                                textStyle: TextStyle(color:HexColor("#ee3115") ),fontSize: 17),
+                                                textStyle: TextStyle(color:HexColor("#ee3115") ),fontSize: 15),
                                             // speed: Duration(seconds: 5  )
                                           ),
 
@@ -104,13 +104,12 @@ class _SplashScreenState extends State<SplashScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 7),
+                                      padding: const EdgeInsets.only(top: 16),
                                       child: AnimatedTextKit(
                                         repeatForever: true,
                                         animatedTexts: [
-                                          FadeAnimatedText('𝗜',
-                                            // textStyle: GoogleFonts.getFont(
-                                            //     'Bebas Neue',
+                                          FadeAnimatedText('I',
+
                                             textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 49),
                                             // speed: Duration(seconds: 5  )
                                           ),
