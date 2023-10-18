@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 10000),
+    Timer(Duration(seconds: 3),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
@@ -93,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                                             GoogleFonts.getFont(
                                                 'Bebas Neue',
-                                                textStyle: TextStyle(color:HexColor("#ee3115") ),fontSize: 15),
+                                                textStyle: TextStyle(color:HexColor("#ee3115") ),fontSize: 13),
                                             // speed: Duration(seconds: 5  )
                                           ),
 
