@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pumd_app_ios/staticVariable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -332,6 +333,7 @@ class _FrameFourScreenState extends State<FrameFourScreen> {
                                                       (Item? newValue) async {
                                                     Navigator.pushNamed(context,
                                                         AppRoutes.loding);
+                                                    currentSelectedValueID="Select State";
                                                     setState(() {
                                                       selectedItem = newValue;
                                                     });
@@ -503,7 +505,6 @@ class _FrameFourScreenState extends State<FrameFourScreen> {
                                                             BorderRadius
                                                                 .circular(
                                                                     20.0)),
-                                                    labelText: "Select State",
                                                     hintText: "Select State",
                                                   ),
                                                   // popupItemDisabled:,
@@ -922,73 +923,89 @@ class _FrameFourScreenState extends State<FrameFourScreen> {
                                                   ),
                                                   onPressed: () async {
                                                     print(
-                                                        "payload json state${StaticControler.payload}");
+                                                        "payload json state${StaticControler
+                                                            .payload}");
                                                     print(SelectTed);
                                                     Navigator.pushNamed(context,
                                                         AppRoutes.loding);
-                                                    ScreenFive.Otp1.text = "";
-                                                    ScreenFive.Otp2.text = "";
-                                                    ScreenFive.Otp3.text = "";
-                                                    ScreenFive.Otp4.text = "";
-                                                    try {
-                                                      StaticControler.NAStatus =
-                                                          await ApiCall
-                                                              .SaveNewAss();
-                                                      ApiCall.otpTrig();
-                                                    } on SocketException catch (e) {
-                                                      print(
-                                                          "exceptpion oucce $e");
-                                                      if (e.toString() ==
-                                                          "Software caused connection abort") {
-                                                        OTPConectionDialog(
-                                                            context);
-                                                      }
-                                                      if (e.toString() ==
-                                                          "Connection failed") {
-                                                        OTPConectionDialog(
-                                                            context);
-                                                      }
-                                                      if (e.toString() ==
-                                                          "Service Unavailable") {
-                                                        ServiceUnavilabe(
-                                                            context);
-                                                      }
-                                                      if (e.toString() ==
-                                                          "Connection timed out") {
-                                                        OTPConectionTimeOutDialog(
-                                                            context);
-                                                      }
-                                                    }
-                                                    // StaticControler.NAStatus=await ApiCall.SaveNewAss();
-                                                    print(await StaticControler
-                                                        .NAStatus);
-                                                    print(
-                                                        "seleced idprint$currentSelectedValueID");
-                                                    if (currentSelectedValueID ==
-                                                        null) {
-                                                      StateDialoge();
-                                                    }
-                                                    if (formKey.currentState
-                                                            ?.validate() ==
+                                                    final internetConection = await InternetConnectionChecker()
+                                                        .hasConnection;
+                                                    if (internetConection ==
                                                         true) {
-                                                      _autoValidate = 1;
-
-                                                      if (StaticControler
-                                                              .NAStatus ==
-                                                          1) {
-                                                        // ApiCall.NewAscotTrig();
-                                                        onTapSave(context);
+                                                      ScreenFive.Otp1.text = "";
+                                                      ScreenFive.Otp2.text = "";
+                                                      ScreenFive.Otp3.text = "";
+                                                      ScreenFive.Otp4.text = "";
+                                                      try {
+                                                        StaticControler
+                                                            .NAStatus =
+                                                        await ApiCall
+                                                            .SaveNewAss();
+                                                        ApiCall.otpTrig();
+                                                      } on SocketException catch (e) {
+                                                        print(
+                                                            "exceptpion oucce $e");
+                                                        if (e.toString() ==
+                                                            "Software caused connection abort") {
+                                                          OTPConectionDialog(
+                                                              context);
+                                                        }
+                                                        if (e.toString() ==
+                                                            "Connection failed") {
+                                                          OTPConectionDialog(
+                                                              context);
+                                                        }
+                                                        if (e.toString() ==
+                                                            "Service Unavailable") {
+                                                          ServiceUnavilabe(
+                                                              context);
+                                                        }
+                                                        if (e.toString() ==
+                                                            "Connection timed out") {
+                                                          OTPConectionTimeOutDialog(
+                                                              context);
+                                                        }
                                                       }
-                                                    } else {
-                                                      ValidateDialog();
+                                                      // StaticControler.NAStatus=await ApiCall.SaveNewAss();
+                                                      print(
+                                                          await StaticControler
+                                                              .NAStatus);
+                                                      print(
+                                                          "seleced idprint$currentSelectedValueID");
+                                                      if (currentSelectedValueID ==
+                                                          null ||
+                                                          currentSelectedValueID ==
+                                                              "Select State") {
+                                                        StateDialoge();
+                                                      }
+                                                      if (formKey.currentState
+                                                          ?.validate() ==
+                                                          true) {
+                                                        _autoValidate = 1;
+
+                                                        if (StaticControler
+                                                            .NAStatus ==
+                                                            1) {
+                                                          // ApiCall.NewAscotTrig();
+                                                          onTapSave(context);
+                                                        }
+                                                      } else {
+                                                        ValidateDialog();
+                                                      }
+                                                      // if(isValidPrimaryEmail()==true&&isValidSecEmail()==true) {
+                                                      //   ApiCall.NewAscotpTrig();
+                                                      //   onTapSave(context);
+                                                      // }
+                                                      // else{
+                                                      //   ValidateDialog();
+                                                      // }
                                                     }
-                                                    // if(isValidPrimaryEmail()==true&&isValidSecEmail()==true) {
-                                                    //   ApiCall.NewAscotpTrig();
-                                                    //   onTapSave(context);
-                                                    // }
-                                                    // else{
-                                                    //   ValidateDialog();
-                                                    // }
+                                                    else
+                                                    {
+
+                                                      Navigator.pop(context);
+                                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(backgroundColor: Colors.deepOrange,content: Text("Check your internet connection and try again")));
+                                                    }
                                                   })),
                                           // padding(
                                           //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)

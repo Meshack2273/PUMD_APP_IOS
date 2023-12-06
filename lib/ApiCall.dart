@@ -3,7 +3,6 @@ import 'dart:core';
 import 'dart:core';
 import 'dart:io';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:pdfx/pdfx.dart';
 import 'package:pumd_app_ios/staticVariable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -91,11 +90,9 @@ class ApiCall {
         return "Connection Timeout";
       } else if (token == "Not Found") {
         return "Not Found";
+      } else if (token == "Proxy Error") {
+        return "Proxy Error";
       }
-      else if (token == "Proxy Error")
-        {
-          return "Proxy Error";
-        }
     } catch (e) {
       print("Login GetToken Exception $e");
       return "Connection Exception";
@@ -119,7 +116,7 @@ class ApiCall {
           final SecEmail = jsonres['fabMaster']['secondaryEmail'] as String?;
           final Otp = jsonres['otp'] as String?;
           final sts = jsonres['status'];
-          List rep = ["$PriEmail ", "$SecEmail ", "$Otp ", sts];
+          List rep = ["$PriEmail ", "$SecEmail  ", "$Otp ", sts];
           print(rep);
           return rep;
         } else if (StaticControler.OtpTriStatus == 2) {

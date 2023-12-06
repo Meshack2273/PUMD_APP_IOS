@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,21 +31,21 @@ class _LoginState extends State<Login> {
     setState(() {
       isDeviceConnected = false;
     });
-    getConnectivity();
+    // getConnectivity();
     super.initState();
   }
 
-  getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          print("${isDeviceConnected}  Checking");
-          if (!isDeviceConnected && isAlertSet == false) {
-            ConectionDialog();
-            setState(() => isAlertSet = true);
-          }
-        },
-      );
+  // getConnectivity() =>
+  //     subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         print("${isDeviceConnected}  Checking");
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           ConectionDialog();
+  //           setState(() => isAlertSet = true);
+  //         }
+  //       },
+  //     );
 
   ConectionDialog() => showCupertinoDialog<String>(
         context: context,

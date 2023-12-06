@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:pdfx/pdfx.dart';
+// import 'package:pdfx/pdfx.dart';
 import 'package:pumd_app_ios/ApiCall.dart';
 import 'package:pumd_app_ios/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,9 +34,9 @@ StreamController<int> streamControllerForPageInc =
 StreamController<int> streamControllerForPreviousPage =
     StreamController<int>.broadcast();
 TextEditingController SearchText = TextEditingController();
-PdfController pdfController = PdfController(
-  document: PdfDocument.openFile(StaticControler.localPath),
-);
+// PdfController pdfController = PdfController(
+//   document: PdfDocument.openFile(StaticControler.localPath),
+// );
 Isolate? backgroundIsolate;
 Map<dynamic, dynamic> PdfLang = {
   "En": "English",
@@ -231,38 +231,38 @@ class _PDFScreenState extends State<PDFScreen> {
                           }).toList(),
 
                           onChanged: (newValue) async {
-                            pdfController.jumpToPage(1);
-                            Navigator.pushNamed(context, AppRoutes.loding);
-                            StaticControler.Language = newValue;
-                            print("language ${StaticControler.Language}");
-                            if (newValue == "Du") {
-                              StaticControler.localPath =
-                                  await ApiCall.loadPDFLng();
-                              await pdfController.loadDocument(
-                                  PdfDocument.openFile(
-                                      StaticControler.localPath));
-                              streamControllerfortolalPage
-                                  .add(await pdfController.pagesCount!);
-                              streamControllerForPageInc
-                                  .add(await pdfController.page!);
+                            // pdfController.jumpToPage(1);
+                            // Navigator.pushNamed(context, AppRoutes.loding);
+                            // StaticControler.Language = newValue;
+                            // print("language ${StaticControler.Language}");
+                            // if (newValue == "Du") {
+                            //   StaticControler.localPath =
+                            //       await ApiCall.loadPDFLng();
+                            //   await pdfController.loadDocument(
+                            //       PdfDocument.openFile(
+                            //           StaticControler.localPath));
+                            //   streamControllerfortolalPage
+                            //       .add(await pdfController.pagesCount!);
+                            //   streamControllerForPageInc
+                            //       .add(await pdfController.page!);
 
-                              print(
-                                  "page count onChanged ${await pdfController.pagesCount}");
-                            }
-                            if (newValue == "En" || newValue == "Fr") {
-                              StaticControler.localPath =
-                                  await ApiCall.loadPDF();
-                              await pdfController.loadDocument(
-                                  PdfDocument.openFile(
-                                      StaticControler.localPath));
-                              streamControllerfortolalPage
-                                  .add(await pdfController.pagesCount!);
-                              streamControllerForPageInc
-                                  .add(await pdfController.page!);
-                              print(
-                                  "page count onChanged ${pdfController.pagesCount}");
-                            }
-                            Navigator.pop(context);
+                            //   print(
+                            //       "page count onChanged ${await pdfController.pagesCount}");
+                            // }
+                            // if (newValue == "En" || newValue == "Fr") {
+                            //   StaticControler.localPath =
+                            //       await ApiCall.loadPDF();
+                            //   await pdfController.loadDocument(
+                            //       PdfDocument.openFile(
+                            //           StaticControler.localPath));
+                            //   streamControllerfortolalPage
+                            //       .add(await pdfController.pagesCount!);
+                            //   streamControllerForPageInc
+                            //       .add(await pdfController.page!);
+                            //   print(
+                            //       "page count onChanged ${pdfController.pagesCount}");
+                            // }
+                            // Navigator.pop(context);
                           }, //onchange
                         ),
                       ),
@@ -346,11 +346,10 @@ class _PDFScreenState extends State<PDFScreen> {
                                           width: 51,
                                           child: // <-- match_parent
 
-                                          IconButton(
+                                              IconButton(
                                             onPressed: () async {
-
-                                              pdfController
-                                                  .jumpToPage(pdfController.page-1);
+                                              // pdfController
+                                              //     .jumpToPage(pdfController.page-1);
                                               // int  increement=0;
                                               // int inc=increement+1;
                                               // try {
@@ -377,43 +376,40 @@ class _PDFScreenState extends State<PDFScreen> {
                                               size: 27,
                                               weight: 10,
                                             ),
-                                          )
-                                      ),
-
+                                          )),
                                     )),
-                              IconButton(
-                                onPressed: () async {
-
-                                  pdfController
-                                      .jumpToPage(pdfController.page+1);
-                                  print("increment value  $i");
-                                  // int  increement=0;
-                                  // int inc=increement+1;
-                                  // try {
-                                  //   final nextpage =
-                                  //       await StaticControler
-                                  //           .Allpages[i++];
-                                  //   print("i value is $i");
-                                  //   print(
-                                  //       "value passing to snap is ${i - 1}");
-                                  //   print(
-                                  //       "page going  to jump is ${nextpage + 1}");
-                                  //   streamControllerForPreviousPage
-                                  //       .add(i - 1);
-                                  //   pdfController
-                                  //       .jumpToPage(nextpage + 1);
-                                  // } catch (e) {
-                                  //   print(e);
-                                  //   i = 1;
-                                  // }
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_circle_down_outlined,
-                                  textDirection: TextDirection.ltr,
-                                  size: 27,
-                                  weight: 10,
-                                ),
-                              )
+                                    IconButton(
+                                      onPressed: () async {
+                                        // pdfController
+                                        //     .jumpToPage(pdfController.page+1);
+                                        print("increment value  $i");
+                                        // int  increement=0;
+                                        // int inc=increement+1;
+                                        // try {
+                                        //   final nextpage =
+                                        //       await StaticControler
+                                        //           .Allpages[i++];
+                                        //   print("i value is $i");
+                                        //   print(
+                                        //       "value passing to snap is ${i - 1}");
+                                        //   print(
+                                        //       "page going  to jump is ${nextpage + 1}");
+                                        //   streamControllerForPreviousPage
+                                        //       .add(i - 1);
+                                        //   pdfController
+                                        //       .jumpToPage(nextpage + 1);
+                                        // } catch (e) {
+                                        //   print(e);
+                                        //   i = 1;
+                                        // }
+                                      },
+                                      icon: const Icon(
+                                        Icons.arrow_circle_down_outlined,
+                                        textDirection: TextDirection.ltr,
+                                        size: 27,
+                                        weight: 10,
+                                      ),
+                                    )
                                   ]);
                           });
                     }),
@@ -443,19 +439,19 @@ class _PDFScreenState extends State<PDFScreen> {
                         child: StaticControler.localPath != "null"
                             ? Stack(
                                 children: [
-                                  PdfView(
-                                      controller: pdfController,
-                                      scrollDirection: Axis.vertical,
-                                      onPageChanged: (page) {
-                                        streamControllerForPageInc
-                                            .add(pdfController.page);
-                                        streamControllerfortolalPage
-                                            .add(pdfController.pagesCount!);
-                                      },
-                                      onDocumentLoaded: (pageload) {
-                                        streamControllerfortolalPage
-                                            .add(pdfController.pagesCount!);
-                                      })
+                                  // PdfView(
+                                  //     controller: pdfController,
+                                  //     scrollDirection: Axis.vertical,
+                                  //     onPageChanged: (page) {
+                                  //       streamControllerForPageInc
+                                  //           .add(pdfController.page);
+                                  //       streamControllerfortolalPage
+                                  //           .add(pdfController.pagesCount!);
+                                  //     },
+                                  //     onDocumentLoaded: (pageload) {
+                                  //       streamControllerfortolalPage
+                                  //           .add(pdfController.pagesCount!);
+                                  //     })
                                 ],
                               )
                             // snapshot.data==0?Text("No Text Found",style: TextStyle(fontWeight: FontWeight.bold),):Text("page")
@@ -476,8 +472,8 @@ class _PDFScreenState extends State<PDFScreen> {
 
 jumpto() {
   try {
-    pdfController.jumpToPage(
-        StaticControler.defaultpage == 0 ? 0 : StaticControler.defaultpage + 1);
+    // pdfController.jumpToPage(
+    //     StaticControler.defaultpage == 0 ? 0 : StaticControler.defaultpage + 1);
   } catch (e) {
     print(e);
   }
@@ -485,7 +481,7 @@ jumpto() {
 
 pageno() {
   try {
-    streamControllerForPageInc.add(pdfController.page);
+    // streamControllerForPageInc.add(pdfController.page);
   } catch (e) {
     print(e);
   }

@@ -3,3 +3,12 @@ Exception: No Impeller context is available
 flutter run --no-enable-impeller
 
 AQIS031834
+
+final internetConection= await InternetConnectionChecker().hasConnection;
+                                                  if(internetConection==true) {
+                                                    ApiCall.otpTrig();
+                                                  }
+                                                  else
+                                                    {
+                                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Check your internet connection and try again")));
+                                                    }

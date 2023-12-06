@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-int start = pdfController.pagesCount!;
+int start = 10;
 
 class lodingScreenWithTime extends StatefulWidget {
   @override
@@ -31,7 +31,7 @@ class loding extends State<lodingScreenWithTime> {
   @override
   void initState() {
     setState(() {
-      start = pdfController.pagesCount!;
+      start = 10;
     });
     startTimer();
     super.initState();

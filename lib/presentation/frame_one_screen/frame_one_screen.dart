@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:hexcolor/hexcolor.dart';
 
 // import 'package:pdf/pdf.dart';
-import 'package:pdfx/pdfx.dart';
+// import 'package:pdfx/pdfx.dart';
 import 'package:pumd_app_ios/core/utils/Model.dart';
 
 // import 'package:pdfx/pdfx.dart';
@@ -25,7 +25,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../ApiCall.dart';
 import 'package:pumd_app_ios/presentation/frame_two_screen/frame_two_screen.dart'
     as ScreenTwo;
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import '../frame_three_screen/pdfScreen.dart';
@@ -98,16 +98,17 @@ class _State extends State<FrameOneScreen> {
   getConnectivity() async {
     if (fabNum.text == await storage.read(key: fabNum.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
-
         SnackBar(
             behavior: SnackBarBehavior.floating,
-              backgroundColor: HexColor("#ee3124"),
-                shape:  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                elevation: 20,
-                content: const Text("Now you can open manual without OTP",style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center,)
-          ),
-
+            backgroundColor: HexColor("#ee3124"),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            elevation: 20,
+            content: const Text(
+              "Now you can open manual without OTP",
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            )),
       );
       streamControllerOTPorPDF.add("Open PDF");
     } else {
@@ -120,16 +121,16 @@ class _State extends State<FrameOneScreen> {
     // else
     // {
     //   streaolled("Send O    // }
-    subscription = Connectivity().onConnectivityChanged.listen(
-      (ConnectivityResult result) async {
-        isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        print("${isDeviceConnected}  Checking");
-        if (!isDeviceConnected && isAlertSet == false) {
-          ConectionDialog();
-          setState(() => isAlertSet = true);
-        }
-      },
-    );
+    // subscription = Connectivity().onConnectivityChanged.listen(
+    //   (ConnectivityResult result) async {
+    //     isDeviceConnected = await InternetConnectionChecker().hasConnection;
+    //     print("${isDeviceConnected}  Checking");
+    //     if (!isDeviceConnected && isAlertSet == false) {
+    //       ConectionDialog();
+    //       setState(() => isAlertSet = true);
+    //     }
+    //   },
+    // );
   }
 
   @override
@@ -156,67 +157,70 @@ class _State extends State<FrameOneScreen> {
         fabNum.text.toUpperCase();
         fabNum.text = await values;
         Navigator.pushNamed(context, AppRoutes.loding);
-        // LOD();
-        // showLoaderDialog(context);
-        // isloding=true;
-        ScreenFour.currentSelectedValue = "";
-        ScreenTwo.Otp1.text = "";
-        ScreenTwo.Otp2.text = "";
-        ScreenTwo.Otp3.text = "";
-        ScreenTwo.Otp4.text = "";
-        ScreenFour.CustomerFirstName.text = "";
-        ScreenFour.CustomerLastName.text = "";
-        ScreenFour.PrimaryMail.text = "";
-        ScreenFour.SecondaryMail.text = "";
-        ScreenFour.Mobilenocon.text = "";
-        ScreenFour.StreetCon.text = "";
-        ScreenFour.CountryCon.text = "";
-        ScreenFour.CityCon.text = "";
-        ScreenFour.StateCon.text = "";
-        ScreenFour.PinCon.text = "";
-        ScreenFour.fabnum.text = fabNum.text;
-        // ScreenFour.formKey.currentState;
-        // screenFour.formKey.currentState?.deactivate();
-        StaticControler.fabnumber = fabNum.text;
-        // ApiCall.otpTrig();
-        // const load.loding();
-        print("fab going to trigger otp ${StaticControler.fabnumber}");
-        // finalres=ApiCall.otpTrig();
-        if (values == await storage.read(key: fabNum.text)) {
-          print("fabnumber from pdf screen ${storage.read(key: fabNum.text)}");
-          Navigator.pushNamed(context, AppRoutes.loding);
-          try {
-            pdfController.dispose();
-          } catch (e) {
-            print(e);
-          }
-          try {
-            final token = await ApiCall.GetToc();
-
-            if (token == "Connection Failed"
-                || token == "Service Unavailable"
-                || token == "Connection Timeout"
-                || token == "Not Found"
-                || token == "Proxy Error") {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  "$token",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: HexColor("#ee3124"),
-                elevation: 10,
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.all(5),
-              ));
+        final internetConection =
+        await InternetConnectionChecker()
+            .hasConnection;
+        if (internetConection==true) {
+          // LOD();
+          // showLoaderDialog(context);
+          // isloding=true;
+          ScreenFour.currentSelectedValue = "";
+          ScreenTwo.Otp1.text = "";
+          ScreenTwo.Otp2.text = "";
+          ScreenTwo.Otp3.text = "";
+          ScreenTwo.Otp4.text = "";
+          ScreenFour.CustomerFirstName.text = "";
+          ScreenFour.CustomerLastName.text = "";
+          ScreenFour.PrimaryMail.text = "";
+          ScreenFour.SecondaryMail.text = "";
+          ScreenFour.Mobilenocon.text = "";
+          ScreenFour.StreetCon.text = "";
+          ScreenFour.CountryCon.text = "";
+          ScreenFour.CityCon.text = "";
+          ScreenFour.StateCon.text = "";
+          ScreenFour.PinCon.text = "";
+          ScreenFour.fabnum.text = fabNum.text;
+          // ScreenFour.formKey.currentState;
+          // screenFour.formKey.currentState?.deactivate();
+          StaticControler.fabnumber = fabNum.text;
+          // ApiCall.otpTrig();
+          // const load.loding();
+          print("fab going to trigger otp ${StaticControler.fabnumber}");
+          // finalres=ApiCall.otpTrig();
+          if (values == await storage.read(key: fabNum.text)) {
+            print(
+                "fabnumber from pdf screen ${storage.read(key: fabNum.text)}");
+            Navigator.pushNamed(context, AppRoutes.loding);
+            try {
+              // pdfController.dispose();
+            } catch (e) {
+              print(e);
             }
-            else
-              {
-                StaticControler.localPath = await ApiCall.loadPDF();
-                totalpage = await pdfController.pagesCount;
+            try {
+              final token = await ApiCall.GetToc();
 
-                pdfController = PdfController(
-                  document: PdfDocument.openFile(StaticControler.localPath),
-                );
+              if (token == "Connection Failed" ||
+                  token == "Service Unavailable" ||
+                  token == "Connection Timeout" ||
+                  token == "Not Found" ||
+                  token == "Proxy Error") {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    "$token",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  backgroundColor: HexColor("#ee3124"),
+                  elevation: 10,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(5),
+                ));
+              } else {
+                StaticControler.localPath = await ApiCall.loadPDF();
+                // totalpage = await pdfController.pagesCount;
+
+                // pdfController = PdfController(
+                //   document: PdfDocument.openFile(StaticControler.localPath),
+                // );
                 print("show pdf");
                 Navigator.push(
                   context,
@@ -225,38 +229,10 @@ class _State extends State<FrameOneScreen> {
                   ),
                 );
               }
-          }catch(e){
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-                "$e",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              backgroundColor: HexColor("#ee3124"),
-              elevation: 10,
-              behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.all(5),
-            ));
-          }
-
-
-        } else {
-          try {
-            print("fabnumber from pdf screen ${storage.read(key: value)}");
-            EmailOtp = await ApiCall.otpTrig();
-            if (EmailOtp == "Connection Exception") {
-              ConectionDialogForLogin();
-            } else if (EmailOtp == "Connection Failed") {
-              ConectionDialogForLogin();
-            } else if (EmailOtp == "Connection Timeout") {
-              ConnectionTimeoutDialog();
-            } else if (EmailOtp == "Service Unavailable") {
-              ServiceUnAvilableDialog();
-            }
-            else if (EmailOtp == "Not Found") {
-              Navigator.pop(context);
+            } catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: const Text(
-                  "404 Not Found Try Again Later",
+                content: Text(
+                  "$e",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 backgroundColor: HexColor("#ee3124"),
@@ -265,51 +241,79 @@ class _State extends State<FrameOneScreen> {
                 margin: EdgeInsets.all(5),
               ));
             }
-            else if (EmailOtp == "Proxy Error") {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: const Text(
-                  "Proxy Error Please Try Again Later",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: HexColor("#ee3124"),
-                elevation: 10,
-                behavior: SnackBarBehavior.floating,
-                margin: EdgeInsets.all(5),
-              ));
-            }
-          } on SocketException catch (e) {
-            if (e.toString() == "Software caused connection abort") {
-              OTPConectionDialog();
-            }
-            if (e.toString() == "Connection failed") {
-              OTPConectionDialog();
-            }
-            if (e.toString() == "Service Unavailable") {
-              OTPConectionDialog();
-            }
-            if (e.toString() == "Connection timed out") {
-              OTPConectionTimeOutDialog();
-            }
-          }
-          print("${EmailOtp[3]}  if state");
-          if (EmailOtp[3] == 1) {
-            lod = false;
-            onTapSendotp(context);
-          } else if (EmailOtp[3] == 2) {
-            onStay(context);
-            return Pending();
-          } else if (fabNum.text == "") {
-            onStay(context);
-            return fabnull();
           } else {
-            onStay(context);
-            if(EmailOtp.runtimeType!=String) {
-              Alert();
+            try {
+              print("fabnumber from pdf screen ${storage.read(key: value)}");
+              EmailOtp = await ApiCall.otpTrig();
+              if (EmailOtp == "Connection Exception") {
+                ConectionDialogForLogin();
+              } else if (EmailOtp == "Connection Failed") {
+                ConectionDialogForLogin();
+              } else if (EmailOtp == "Connection Timeout") {
+                ConnectionTimeoutDialog();
+              } else if (EmailOtp == "Service Unavailable") {
+                ServiceUnAvilableDialog();
+              } else if (EmailOtp == "Not Found") {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: const Text(
+                    "404 Not Found Try Again Later",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  backgroundColor: HexColor("#ee3124"),
+                  elevation: 10,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(5),
+                ));
+              } else if (EmailOtp == "Proxy Error") {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: const Text(
+                    "Proxy Error Please Try Again Later",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  backgroundColor: HexColor("#ee3124"),
+                  elevation: 10,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.all(5),
+                ));
+              }
+            } on SocketException catch (e) {
+              if (e.toString() == "Software caused connection abort") {
+                OTPConectionDialog();
+              }
+              if (e.toString() == "Connection failed") {
+                OTPConectionDialog();
+              }
+              if (e.toString() == "Service Unavailable") {
+                OTPConectionDialog();
+              }
+              if (e.toString() == "Connection timed out") {
+                OTPConectionTimeOutDialog();
+              }
             }
-          }
+            print("${EmailOtp[3]}  if state");
+            if (EmailOtp[3] == 1) {
+              lod = false;
+              onTapSendotp(context);
+            } else if (EmailOtp[3] == 2) {
+              onStay(context);
+              return Pending();
+            } else if (fabNum.text == "") {
+              onStay(context);
+              return fabnull();
+            } else {
+              onStay(context);
+              if (EmailOtp.runtimeType != String) {
+                Alert();
+              }
+            }
 
-          // );
+            // );
+          }
+        }
+        else{
+          ConectionDialogForLogin();
         }
       }
     });
@@ -525,54 +529,77 @@ class _State extends State<FrameOneScreen> {
                                                   Navigator.pushNamed(context,
                                                       AppRoutes.loding);
                                                   try {
-                                                    pdfController.dispose();
+                                                    // pdfController.dispose();
                                                   } catch (e) {
                                                     print(e);
                                                   }
                                                   try {
-                                                    final token = await ApiCall.GetToc();
+                                                    final token =
+                                                        await ApiCall.GetToc();
 
-                                                    if (token == "Connection Failed"
-                                                        || token == "Service Unavailable"
-                                                        || token == "Connection Timeout"
-                                                        || token == "Not Found"
-                                                        || token == "Proxy Error") {
-                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                    if (token == "Connection Failed" ||
+                                                        token ==
+                                                            "Service Unavailable" ||
+                                                        token ==
+                                                            "Connection Timeout" ||
+                                                        token == "Not Found" ||
+                                                        token ==
+                                                            "Proxy Error") {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              SnackBar(
                                                         content: Text(
                                                           "$token",
-                                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
-                                                        backgroundColor: HexColor("#ee3124"),
+                                                        backgroundColor:
+                                                            HexColor("#ee3124"),
                                                         elevation: 10,
-                                                        behavior: SnackBarBehavior.floating,
-                                                        margin: EdgeInsets.all(5),
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                        margin:
+                                                            EdgeInsets.all(5),
                                                       ));
-                                                    }
-                                                    else
-                                                    {
-                                                      StaticControler.localPath = await ApiCall.loadPDF();
-                                                      totalpage = await pdfController.pagesCount;
+                                                    } else {
+                                                      StaticControler
+                                                              .localPath =
+                                                          await ApiCall
+                                                              .loadPDF();
+                                                      // totalpage = await pdfController.pagesCount;
 
-                                                      pdfController = PdfController(
-                                                        document: PdfDocument.openFile(StaticControler.localPath),
-                                                      );
+                                                      // pdfController = PdfController(
+                                                      //   document: PdfDocument.openFile(StaticControler.localPath),
+                                                      // );
                                                       print("show pdf");
                                                       Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
-                                                          builder: (context) => PDFScreen(),
+                                                          builder: (context) =>
+                                                              PDFScreen(),
                                                         ),
                                                       );
                                                     }
-                                                  }catch(e){
-                                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  } catch (e) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
                                                       content: Text(
                                                         "$e",
-                                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
-                                                      backgroundColor: HexColor("#ee3124"),
+                                                      backgroundColor:
+                                                          HexColor("#ee3124"),
                                                       elevation: 10,
-                                                      behavior: SnackBarBehavior.floating,
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
                                                       margin: EdgeInsets.all(5),
                                                     ));
                                                   }
@@ -617,18 +644,28 @@ class _State extends State<FrameOneScreen> {
                                                         margin:
                                                             EdgeInsets.all(5),
                                                       ));
-                                                    }
-                                                    else if (EmailOtp == "Proxy Error") {
+                                                    } else if (EmailOtp ==
+                                                        "Proxy Error") {
                                                       Navigator.pop(context);
-                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              SnackBar(
                                                         content: const Text(
                                                           "Proxy Error Please Try Again Later",
-                                                          style: TextStyle(fontWeight: FontWeight.bold),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
-                                                        backgroundColor: HexColor("#ee3124"),
+                                                        backgroundColor:
+                                                            HexColor("#ee3124"),
                                                         elevation: 10,
-                                                        behavior: SnackBarBehavior.floating,
-                                                        margin: EdgeInsets.all(5),
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                        margin:
+                                                            EdgeInsets.all(5),
                                                       ));
                                                     }
                                                   } on SocketException catch (e) {
@@ -671,7 +708,8 @@ class _State extends State<FrameOneScreen> {
                                                     return fabnull();
                                                   } else {
                                                     onStay(context);
-                                                    if(EmailOtp.runtimeType!=String) {
+                                                    if (EmailOtp.runtimeType !=
+                                                        String) {
                                                       Alert();
                                                     }
                                                   }

@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:pdfx/pdfx.dart';
+// import 'package:pdfx/pdfx.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart'
     as screnone;
 import 'package:pumd_app_ios/core/app_export.dart';
@@ -354,10 +355,17 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
                                         Visibility(
                                             visible: start == 0 ? true : false,
                                             child: TextButton(
-                                                onPressed: () {
+                                                onPressed: () async {
                                                   start = 30;
                                                   startTimer();
-                                                  ApiCall.otpTrig();
+                                                  final internetConection= await InternetConnectionChecker().hasConnection;
+                                                  if(internetConection==true) {
+                                                    ApiCall.otpTrig();
+                                                  }
+                                                  else
+                                                    {
+                                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Check your internet connection and try again")));
+                                                    }
                                                 },
                                                 child: Text(
                                                   "Resend OTP",
@@ -580,7 +588,7 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
   // }
   onTapTxtGroupFour(BuildContext context) async {
     StaticControler.localPath = await ApiCall.loadPDF();
-    totalpage = await pdfController.pagesCount;
+    // totalpage = await pdfController.pagesCount;
     streamController.add(1);
     Navigator.push(
       context,
