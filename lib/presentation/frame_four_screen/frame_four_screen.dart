@@ -166,12 +166,17 @@ class _FrameFourScreenState extends State<FrameFourScreen> {
         //   }
         // },
         // child :
-        WillPopScope(
-            onWillPop: () async {
+       PopScope(
+          canPop:true,
+           onPopInvoked : (tru) async {
               StaticControler.onetime = 1;
               // currentSelectedValue = "";
-              Navigator.pushNamed(context, AppRoutes.frameOneScreen);
-              return true; // return true to allow the pop
+              Future.delayed(Duration.zero,()
+              {
+                Navigator.pushNamed(context, AppRoutes.frameOneScreen);
+              });
+              print("Four screen poped");
+              // return true to allow the pop
             },
             child: SafeArea(
                 child: Scaffold(
@@ -1002,7 +1007,6 @@ class _FrameFourScreenState extends State<FrameFourScreen> {
                                                     }
                                                     else
                                                     {
-
                                                       Navigator.pop(context);
                                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(backgroundColor: Colors.deepOrange,content: Text("Check your internet connection and try again")));
                                                     }

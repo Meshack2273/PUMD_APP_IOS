@@ -39,39 +39,40 @@ class loding extends State<lodingScreenWithTime> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        try {
-          throw Null;
-        } catch (e) {
-          print(e);
-          showCupertinoDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (_) {
-                return WillPopScope(
-                  onWillPop: () async {
-                    return false;
-                  },
-                  child: CupertinoAlertDialog(
-                    content: const Text(
-                      "You can't go back on this stage",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+    return PopScope(
+      onPopInvoked: (tru) async {
+        Future.delayed(Duration.zero,(){
+          try {
+            throw Null;
+          } catch (e) {
+            print(e);
+            showCupertinoDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return PopScope(
+                    onPopInvoked: (tru) async {
+                    },
+                    child: CupertinoAlertDialog(
+                      content: const Text(
+                        "You can't go back on this stage",
+                        style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('OK',
+                                style: TextStyle(fontWeight: FontWeight.bold)))
+                      ],
                     ),
-                    actions: <Widget>[
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('OK',
-                              style: TextStyle(fontWeight: FontWeight.bold)))
-                    ],
-                  ),
-                );
-              });
-          return true;
-        }
+                  );
+                });
+          }
+        });
+
       },
       child: Scaffold(
           backgroundColor: HexColor("#bbb8b8"),

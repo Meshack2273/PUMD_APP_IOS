@@ -3,18 +3,26 @@ import 'dart:io';
 import 'dart:isolate';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
+
 // import 'package:pdfx/pdfx.dart';
-import 'package:pumd_app_ios/ApiCall.dart';
-import 'package:pumd_app_ios/core/app_export.dart';
+
+import 'package:pdf_render/pdf_render.dart';
+// import 'package:pdf/pdf.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+// import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:pumd_app_ios/presentation/frame_one_screen/frame_one_screen.dart';
 // import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+
+import '../../ApiCall.dart';
+import '../../routes/app_routes.dart';
 import '../../staticVariable.dart';
 import '../../widgets/loding_ScrenWithTime.dart';
+import '../frame_one_screen/frame_one_screen.dart';
+
 
 var values = [];
 var encodedFab;
@@ -25,14 +33,14 @@ int j = 0;
 int k = 1;
 FlutterSecureStorage storage = FlutterSecureStorage();
 StreamController<int> streamControllerfortolalPage =
-    StreamController<int>.broadcast();
+StreamController<int>.broadcast();
 StreamController<int> streamController = StreamController<int>.broadcast();
 StreamController<int> streamControllerForTextFound =
-    StreamController<int>.broadcast();
+StreamController<int>.broadcast();
 StreamController<int> streamControllerForPageInc =
-    StreamController<int>.broadcast();
+StreamController<int>.broadcast();
 StreamController<int> streamControllerForPreviousPage =
-    StreamController<int>.broadcast();
+StreamController<int>.broadcast();
 TextEditingController SearchText = TextEditingController();
 // PdfController pdfController = PdfController(
 //   document: PdfDocument.openFile(StaticControler.localPath),
@@ -44,16 +52,23 @@ Map<dynamic, dynamic> PdfLang = {
   "Du": "Dutch"
 };
 
+
 class PDFScreen extends StatefulWidget {
   PDFScreen({super.key});
+
 
   @override
   _PDFScreenState createState() => _PDFScreenState();
 }
 
-class _PDFScreenState extends State<PDFScreen> {
-  final ScrollController _scrollController = ScrollController();
 
+class _PDFScreenState extends State<PDFScreen> {
+  final GlobalKey<_PDFScreenState> pdfViewerKey = GlobalKey();
+  // PDFView pdfView=PDFView(filePath: StaticControler.localPath);
+  final ScrollController _scrollController = ScrollController();
+PdfViewerController pdfcon=PdfViewerController();
+PdfViewer pdfViewer=PdfViewer.openFile(StaticControler.localPath);
+int increement =2;
   @override
   initState() {
     // values.add("TEST2");
@@ -79,21 +94,26 @@ class _PDFScreenState extends State<PDFScreen> {
     super.initState();
   }
 
+
   Anoymous() async {
     print("this is list of fab ${await storage.read(key: "FAB")}");
   }
 
+
   Encode() async {
     encodedFab = values.join("|");
   }
+
 
   @override
   void dispose() {
     super.dispose();
   }
 
+
   String? localPath;
   int defaultpage = 0;
+
 
   TextButton clickbutton = TextButton(
       onPressed: () {
@@ -101,19 +121,22 @@ class _PDFScreenState extends State<PDFScreen> {
       },
       child: Text(""));
 
+
   // bool isLoading = true;
   // int totalPages = 0;
   // int currentPage = 0;
   // PDFViewController? pdfViewController;
 
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        onPopInvoked: (tru) async {
           SearchText.text = "";
           print("pop");
-          Navigator.pushNamed(context, AppRoutes.frameOneScreen);
-          return true;
+          Future.delayed(Duration.zero,(){
+            Navigator.pushNamed(context, AppRoutes.frameOneScreen);
+          });
         },
         child: Scaffold(
             backgroundColor: HexColor("#bbb8b8"),
@@ -126,88 +149,14 @@ class _PDFScreenState extends State<PDFScreen> {
             body: Stack(children: [
               Padding(
                 padding:
-                    EdgeInsets.only(top: 20, right: 20, left: 30, bottom: 5),
+                EdgeInsets.only(top: 20, right: 30, left: 30, bottom: 5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //Search bar
-                    // Flexible(
-                    //   child: Container(
-                    //     width: 160,
-                    //     child: Material(
-                    //       borderRadius: BorderRadius.circular(32.0),
-                    //       elevation: 20.0,
-                    //       shadowColor: Colors.grey,
-                    //       child: TextFormField(
-                    //         inputFormatters: [NoLeadingSpaceFormatter()],
-                    //         controller: SearchText,
-                    //         decoration: InputDecoration(
-                    //           hintText: 'Search...',
-                    //           contentPadding:
-                    //               EdgeInsets.fromLTRB(16.0, 12.0, 48.0, 12.0),
-                    //           border: OutlineInputBorder(
-                    //             borderRadius: BorderRadius.circular(32.0),
-                    //           ),
-                    //           suffixIcon: GestureDetector(
-                    //             child: Icon(Icons.search),
-                    //             onTap: () async {
-                    //               if (SearchText.text == "") {
-                    //                 ScaffoldMessenger.of(context)
-                    //                     .showSnackBar(SnackBar(
-                    //                   content: const Text(
-                    //                     "Enter any text to search 😕",
-                    //                     style: TextStyle(
-                    //                         fontWeight: FontWeight.bold),
-                    //                   ),
-                    //                   backgroundColor: HexColor("#ee3124"),
-                    //                   elevation: 10,
-                    //                   behavior: SnackBarBehavior.floating,
-                    //                   margin: EdgeInsets.all(5),
-                    //                 ));
-                    //                 return null;
-                    //               }
-                    //               i = 1;
-                    //               j = 0;
-                    //               print(
-                    //                   "increment ${StaticControler.integerforpdf}");
-                    //               Navigator.push(
-                    //                   context,
-                    //                   MaterialPageRoute(
-                    //                       builder: (context) =>
-                    //                           lodingScreenWithTime()));
-                    //
-                    //               print("clicked");
-                    //               clickbutton.onPressed?.call();
-                    //               try {
-                    //                 StaticControler.defaultpage =
-                    //                     1;
-                    //                 streamControllerForPageInc
-                    //                     .add(StaticControler.defaultpage + 1);
-                    //                 streamControllerForTextFound.add(200);
-                    //                 streamController.add(1);
-                    //                 Navigator.pop(context);
-                    //                 jumpto();
-                    //               } catch (e) {
-                    //                 print(e);
-                    //                 StaticControler.defaultpage = 500;
-                    //                 streamControllerForPageInc
-                    //                     .add(pdfController.page);
-                    //                 streamControllerForTextFound.add(500);
-                    //                 streamController.add(0);
-                    //                 Navigator.pop(context);
-                    //               }
-                    //
-                    //               // streamController.add(await StaticControler.defaultpage);
-                    //               // streamController.add(await  StaticControler.defaultpage);
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    Flexible(
+                     child:
+
                     Container(
-                      width: 250,
+                      width: 500,
                       height: 50,
                       child: Material(
                         borderRadius: BorderRadius.circular(32.0),
@@ -230,189 +179,66 @@ class _PDFScreenState extends State<PDFScreen> {
                             );
                           }).toList(),
 
-                          onChanged: (newValue) async {
-                            // pdfController.jumpToPage(1);
-                            // Navigator.pushNamed(context, AppRoutes.loding);
-                            // StaticControler.Language = newValue;
-                            // print("language ${StaticControler.Language}");
-                            // if (newValue == "Du") {
-                            //   StaticControler.localPath =
-                            //       await ApiCall.loadPDFLng();
-                            //   await pdfController.loadDocument(
-                            //       PdfDocument.openFile(
-                            //           StaticControler.localPath));
-                            //   streamControllerfortolalPage
-                            //       .add(await pdfController.pagesCount!);
-                            //   streamControllerForPageInc
-                            //       .add(await pdfController.page!);
 
-                            //   print(
-                            //       "page count onChanged ${await pdfController.pagesCount}");
-                            // }
-                            // if (newValue == "En" || newValue == "Fr") {
-                            //   StaticControler.localPath =
-                            //       await ApiCall.loadPDF();
-                            //   await pdfController.loadDocument(
-                            //       PdfDocument.openFile(
-                            //           StaticControler.localPath));
-                            //   streamControllerfortolalPage
-                            //       .add(await pdfController.pagesCount!);
-                            //   streamControllerForPageInc
-                            //       .add(await pdfController.page!);
-                            //   print(
-                            //       "page count onChanged ${pdfController.pagesCount}");
-                            // }
-                            // Navigator.pop(context);
+                          onChanged: (newValue) async {
+
+                            Navigator.pushNamed(context, AppRoutes.loding);
+                            increement=increement+1;
+
+                            StaticControler.Language = newValue;
+                            print("language ${StaticControler.Language}");
+                            if (newValue == "Du") {
+
+                                StaticControler.localPath =
+                                await ApiCall.TestPDF();
+
+
+
+                              setState(() {
+
+                                print("pdf changed");
+
+                              });
+                              // await pdfController.loadDocument(
+                              //     PdfDocument.openFile(
+                              //         StaticControler.localPath));
+                              // streamControllerfortolalPage
+                              //     .add(await pdfController.pagesCount!);
+                              // streamControllerForPageInc
+                              //     .add(await pdfController.page!);
+
+
+                              // print(
+                              //     "page count onChanged ${await pdfController.pagesCount}");
+                            }
+                            if (newValue == "En") {
+                              StaticControler.localPath =
+                              await ApiCall.loadElgiPDF();
+                              // await pdfController.loadDocument(
+                              //     PdfDocument.openFile(
+                              //         StaticControler.localPath));
+                              // streamControllerfortolalPage
+                              //     .add(await pdfController.pagesCount!);
+                              // streamControllerForPageInc
+                              //     .add(await pdfController.page!);
+                              // print(
+                              //     "page count onChanged ${pdfController.pagesCount}");
+                            }
+                            if(newValue=="Fr")
+                              {
+                                StaticControler.localPath =
+                                await ApiCall.loadFRPDF();
+                                setState(() {
+                                  print("pdf changed");
+                                });
+                              }
+                            Navigator.pop(context);
                           }, //onchange
                         ),
                       ),
                     )
-                  ],
+                    )],
                 ),
-              ),
-              // Container(margin:EdgeInsets.only(top: 80,right: 20,left: 20),child:
-              //  DropdownButtonFormField2<dynamic>(
-              //    // value:int.parse(StaticControler.foundKeyForZone),
-              //    // value:"En",
-              //    decoration: InputDecoration(
-              //      contentPadding: EdgeInsets.all(15),
-              //      border: OutlineInputBorder(
-              //          borderRadius:
-              //          BorderRadius
-              //              .circular(
-              //              10.0)
-              //      ),
-              //
-              //    ),
-              //    isExpanded: true,
-              //    items: PdfLang.entries
-              //        .map((MapEntry<dynamic, dynamic> entry) {
-              //      return DropdownMenuItem<String>(
-              //        value: entry.value,
-              //        child: Text(entry.key),
-              //      );
-              //    })
-              //        .toList(),
-              //
-              //    onChanged: ( newValue) async {
-              //    },//onchange
-              //
-              //  )
-              // ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 90,
-                  left: 60,
-                ),
-                child: StreamBuilder<int>(
-                    stream: streamControllerForTextFound.stream,
-                    builder: (context, snapshotForTextFound) {
-                      return StreamBuilder<int>(
-                          stream: streamControllerForPageInc.stream,
-                          builder: (context, snapshotForPageInc) {
-                            return snapshotForTextFound.data == 500
-                                ? const Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 20, left: 100),
-                                    child: Text(
-                                      "No Text Found",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ))
-                                : Row(children: [
-                                    const Text(
-                                      "page   ",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      "${snapshotForPageInc.data ?? 1} / ",
-                                    ),
-                                    StreamBuilder<int>(
-                                        stream:
-                                            streamControllerfortolalPage.stream,
-                                        builder: (context, snapshotTotalpage) {
-                                          return Text(
-                                            "${snapshotTotalpage.data ?? "..."}",
-                                          );
-                                        }),
-                                    SizedBox(width: 130),
-                                    Flexible(
-                                        child: Padding(
-                                      padding: EdgeInsets.only(),
-                                      child: SizedBox(
-                                          width: 51,
-                                          child: // <-- match_parent
-
-                                              IconButton(
-                                            onPressed: () async {
-                                              // pdfController
-                                              //     .jumpToPage(pdfController.page-1);
-                                              // int  increement=0;
-                                              // int inc=increement+1;
-                                              // try {
-                                              //   final nextpage =
-                                              //       await StaticControler
-                                              //           .Allpages[i++];
-                                              //   print("i value is $i");
-                                              //   print(
-                                              //       "value passing to snap is ${i - 1}");
-                                              //   print(
-                                              //       "page going  to jump is ${nextpage + 1}");
-                                              //   streamControllerForPreviousPage
-                                              //       .add(i - 1);
-                                              //   pdfController
-                                              //       .jumpToPage(nextpage + 1);
-                                              // } catch (e) {
-                                              //   print(e);
-                                              //   i = 1;
-                                              // }
-                                            },
-                                            icon: const Icon(
-                                              Icons.arrow_circle_up_outlined,
-                                              textDirection: TextDirection.ltr,
-                                              size: 27,
-                                              weight: 10,
-                                            ),
-                                          )),
-                                    )),
-                                    IconButton(
-                                      onPressed: () async {
-                                        // pdfController
-                                        //     .jumpToPage(pdfController.page+1);
-                                        print("increment value  $i");
-                                        // int  increement=0;
-                                        // int inc=increement+1;
-                                        // try {
-                                        //   final nextpage =
-                                        //       await StaticControler
-                                        //           .Allpages[i++];
-                                        //   print("i value is $i");
-                                        //   print(
-                                        //       "value passing to snap is ${i - 1}");
-                                        //   print(
-                                        //       "page going  to jump is ${nextpage + 1}");
-                                        //   streamControllerForPreviousPage
-                                        //       .add(i - 1);
-                                        //   pdfController
-                                        //       .jumpToPage(nextpage + 1);
-                                        // } catch (e) {
-                                        //   print(e);
-                                        //   i = 1;
-                                        // }
-                                      },
-                                      icon: const Icon(
-                                        Icons.arrow_circle_down_outlined,
-                                        textDirection: TextDirection.ltr,
-                                        size: 27,
-                                        weight: 10,
-                                      ),
-                                    )
-                                  ]);
-                          });
-                    }),
               ),
 
               StreamBuilder<int>(
@@ -426,35 +252,43 @@ class _PDFScreenState extends State<PDFScreen> {
                         snapshot.data?.truncate();
                         const Center(
                             child: Text(
-                          "No Text Found",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ));
+                              "No Text Found",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ));
                       }
+
 
                       print("Stream builder is working");
                       print("default page ${StaticControler.defaultpage}");
 
+
                       return Container(
-                        margin: EdgeInsets.only(top: 150),
+                        margin: EdgeInsets.only(top: 100),
                         child: StaticControler.localPath != "null"
                             ? Stack(
-                                children: [
-                                  // PdfView(
-                                  //     controller: pdfController,
-                                  //     scrollDirection: Axis.vertical,
-                                  //     onPageChanged: (page) {
-                                  //       streamControllerForPageInc
-                                  //           .add(pdfController.page);
-                                  //       streamControllerfortolalPage
-                                  //           .add(pdfController.pagesCount!);
-                                  //     },
-                                  //     onDocumentLoaded: (pageload) {
-                                  //       streamControllerfortolalPage
-                                  //           .add(pdfController.pagesCount!);
-                                  //     })
-                                ],
-                              )
-                            // snapshot.data==0?Text("No Text Found",style: TextStyle(fontWeight: FontWeight.bold),):Text("page")
+                          children: [
+                            //PDFView(filePath: pdfView.filePath,)
+                              increement.isEven?PdfViewer(doc:PdfDocument.openFile(StaticControler.localPath),viewerController: pdfcon,):
+                              PdfViewer(doc:PdfDocument.openFile(StaticControler.localPath),viewerController: pdfcon,)
+
+                            // PdfView(
+                            //     controller: pdfController,
+                            // )
+                                // scrollDirection: Axis.vertical,
+                                // onPageChanged: (page) {
+                                //   streamControllerForPageInc
+                                //       .add(pdfController.page);
+                                //   streamControllerfortolalPage
+                                //       .add(pdfController.pagesCount!);
+                                // },
+                                // onDocumentLoaded: (pageload) {
+                                //   streamControllerfortolalPage
+                                //       .add(pdfController.pagesCount!);
+                                // }
+                    // )
+                          ],
+                        )
+                        // snapshot.data==0?Text("No Text Found",style: TextStyle(fontWeight: FontWeight.bold),):Text("page")
                             : Center(child: CircularProgressIndicator()),
                       );
                     } else {
@@ -464,54 +298,34 @@ class _PDFScreenState extends State<PDFScreen> {
             ])));
   }
 
+
   void disposee() {
     _scrollController.dispose(); // Dispose the ScrollController
     super.dispose();
   }
 }
 
-jumpto() {
-  try {
-    // pdfController.jumpToPage(
-    //     StaticControler.defaultpage == 0 ? 0 : StaticControler.defaultpage + 1);
-  } catch (e) {
-    print(e);
-  }
-}
-
-pageno() {
-  try {
-    // streamControllerForPageInc.add(pdfController.page);
-  } catch (e) {
-    print(e);
-  }
-}
-
-// searchText() async {
-//   StaticControler.Allpages = [];
-//   final document = await PDFDoc.fromPath(StaticControler.localPath);
-//   // final document = await PDFDoc.fromURL("https://icseindia.org/document/sample.pdf");
-//   final pageCount = document.length;
-//   String result = '';
 //
-//   for (var i = 0; i < pageCount; i++) {
-//     final page = await document.pageAt(i + 1);
-//     final pageText = await page.text;
-//     print("text of pdf ${pageText}");
-//
-//     if (pageText.contains(SearchText.text)) {
-//       result += '${i}|';
-//       StaticControler.Allpages.add(i);
-//     }
+// jumpto() {
+//   try {
+//     pdfController.jumpToPage(
+//         StaticControler.defaultpage == 0 ? 0 : StaticControler.defaultpage + 1);
+//   } catch (e) {
+//     print(e);
 //   }
-//   print("result of page number is $result");
-//   print("All pages where text available ${StaticControler.Allpages[0]}");
-//   print(
-//       "return data ${StaticControler.Allpages[0]},${StaticControler.Allpages[0].runtimeType}");
-//   final resultint = await StaticControler.Allpages[0];
-//   print("return data $resultint,${resultint.runtimeType}");
-//   return resultint;
 // }
+
+
+// pageno() {
+//   try {
+//     streamControllerForPageInc.add(pdfController.page);
+//   } catch (e) {
+//     print(e);
+//   }
+// }
+
+
+
 
 invalidOTP(context) {
   showCupertinoDialog(
@@ -523,3 +337,4 @@ invalidOTP(context) {
         );
       });
 }
+

@@ -368,12 +368,34 @@ class ApiCall {
     return await file.path;
   }
 
-  static loadPDFLng() async {
+  static loadElgiPDF() async {
     var responce = await http.get(Uri.parse(
-        "https://api29.ilovepdf.com/v1/download/m5phbdz65m0qsAkn4n9vr81xktzpmhvgq6jm973fk9lAfzpbj8ph8wh8mkr81kwdrwd41qvmj7pdmtnvqtkk1brpsy1jyAywvltk95zAhqA5t8d7m2fjmjjjtzpf0ygsdt0m6krg4ynjxf61f8yhnrprymtx10646pAwtts20tsw2s2bxq91"));
+        "https://www.elgi.com/ae/wp-content/uploads/2019/10/eg-series-11-75-60hz.pdf"));
     var dir = await getApplicationDocumentsDirectory();
     File file = await File("${dir.path}/lang.pdf");
     print("pdf data ${responce.bodyBytes}");
+    print("type of file ${file.runtimeType}");
+    file.writeAsBytesSync(responce.bodyBytes, flush: true);
+    StaticControler.localPath = await file.path;
+    return await file.path;
+  }
+  static loadFRPDF() async {
+    var responce = await http.get(Uri.parse(
+        "https://upload.wikimedia.org/wikipedia/commons/6/63/French.pdf"));
+    var dir = await getApplicationDocumentsDirectory();
+    File file = await File("${dir.path}/lang.pdf");
+    print("pdf data ${responce.bodyBytes}");
+    print("type of file ${file.runtimeType}");
+    file.writeAsBytesSync(responce.bodyBytes, flush: true);
+    StaticControler.localPath = await file.path;
+    return await file.path;
+  }
+  static TestPDF() async {
+    var responce = await http.get(Uri.parse(
+        "https://myessayreview.com/wp-content/uploads/2019/08/E-book-of-30-sample-essays.pdf"));
+    var dir = await getApplicationDocumentsDirectory();
+    File file = await File("${dir.path}/lang.pdf");
+    print("pdf test data ${responce.bodyBytes}");
     print("type of file ${file.runtimeType}");
     file.writeAsBytesSync(responce.bodyBytes, flush: true);
     StaticControler.localPath = await file.path;

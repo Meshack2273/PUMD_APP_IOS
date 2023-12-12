@@ -64,12 +64,11 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        onPopInvoked: (tru) async {
           StaticControler.fabnumber = "";
           screnone.fabNum.text = "";
           Navigator.pushNamed(context, AppRoutes.frameOneScreen);
-          return true; // return true to allow the pop
         },
         child: SafeArea(
             child: Scaffold(
@@ -310,6 +309,12 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
                                                         onTapTxtGroupFour(
                                                             context);
                                                         // ApiCall.GetPdf();
+                                                      } else if (StaticControler
+                                                              .Status ==
+                                                          0) {
+                                                        StaticControler.localPath=await ApiCall.loadElgiPDF();
+                                                        onTapTxtGroupFour(
+                                                            context);
                                                       } else {
                                                         foc = true;
                                                         Otp1.text = "";
@@ -358,14 +363,20 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
                                                 onPressed: () async {
                                                   start = 30;
                                                   startTimer();
-                                                  final internetConection= await InternetConnectionChecker().hasConnection;
-                                                  if(internetConection==true) {
+                                                  final internetConection =
+                                                      await InternetConnectionChecker()
+                                                          .hasConnection;
+                                                  if (internetConection ==
+                                                      true) {
                                                     ApiCall.otpTrig();
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                            const SnackBar(
+                                                                content: Text(
+                                                                    "Check your internet connection and try again")));
                                                   }
-                                                  else
-                                                    {
-                                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Check your internet connection and try again")));
-                                                    }
                                                 },
                                                 child: Text(
                                                   "Resend OTP",
@@ -587,9 +598,9 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
   //   Navigator.pushNamed(context, AppRoutes.frameThreeScreen);
   // }
   onTapTxtGroupFour(BuildContext context) async {
-    StaticControler.localPath = await ApiCall.loadPDF();
+    // StaticControler.localPath = await ApiCall.loadPDF();
     // totalpage = await pdfController.pagesCount;
-    streamController.add(1);
+    // streamController.add(1);
     Navigator.push(
       context,
       MaterialPageRoute(

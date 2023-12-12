@@ -73,10 +73,9 @@ class _HomeState extends State<Home> {
       );
 
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        onPopInvoked: (tru) async {
           SystemNavigator.pop();
-          return true;
         },
         child: Scaffold(
             resizeToAvoidBottomInset: true,

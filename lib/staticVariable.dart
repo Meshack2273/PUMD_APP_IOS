@@ -15,7 +15,7 @@ class StaticControler {
   static String SearchPage = "0";
   static String Language = "0";
   // static String URL = "https://airapi.elgi.com";
-  static String URL = "http://43.205.235.222:86";
+  static String URL = "http://airapi.elgi.com";
   static String reason = "";
   static int len = 1;
   static bool error = true;

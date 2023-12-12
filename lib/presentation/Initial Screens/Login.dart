@@ -73,9 +73,8 @@ class _LoginState extends State<Login> {
       );
 
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          return true;
+    return PopScope(
+        onPopInvoked: (tru) async {
         },
         child: Scaffold(
             resizeToAvoidBottomInset: true,

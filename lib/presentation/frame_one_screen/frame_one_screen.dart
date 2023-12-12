@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:pdfx/pdfx.dart';
 
 // import 'package:pdf/pdf.dart';
 // import 'package:pdfx/pdfx.dart';
@@ -193,7 +194,8 @@ class _State extends State<FrameOneScreen> {
             Navigator.pushNamed(context, AppRoutes.loding);
             try {
               // pdfController.dispose();
-            } catch (e) {
+            } catch (e)
+            {
               print(e);
             }
             try {
@@ -215,7 +217,7 @@ class _State extends State<FrameOneScreen> {
                   margin: EdgeInsets.all(5),
                 ));
               } else {
-                StaticControler.localPath = await ApiCall.loadPDF();
+                StaticControler.localPath = await ApiCall.loadElgiPDF();
                 // totalpage = await pdfController.pagesCount;
 
                 // pdfController = PdfController(
@@ -323,10 +325,10 @@ class _State extends State<FrameOneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        onPopInvoked: (tru) async {
           StaticControler.fabnumber == "";
-          return true;
+
         },
         child: SafeArea(
             child: Scaffold(
@@ -569,9 +571,9 @@ class _State extends State<FrameOneScreen> {
                                                       StaticControler
                                                               .localPath =
                                                           await ApiCall
-                                                              .loadPDF();
+                                                              .loadElgiPDF();
                                                       // totalpage = await pdfController.pagesCount;
-
+                                                      //
                                                       // pdfController = PdfController(
                                                       //   document: PdfDocument.openFile(StaticControler.localPath),
                                                       // );

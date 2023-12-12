@@ -61,10 +61,12 @@ class _FrameFiveScreen extends State<FrameFiveScreen> {
 
   @override
   Widget build(context) {
-    return WillPopScope(
-        onWillPop: () async {
-          Navigator.pushNamed(context, AppRoutes.frameFourScreen);
-          return true; // return true to allow the pop
+    return PopScope(
+        onPopInvoked: (tru) async {
+          Future.delayed(Duration.zero,(){
+            Navigator.pushNamed(context, AppRoutes.frameFourScreen);
+
+          });
         },
         child: SafeArea(
             child: Scaffold(

@@ -7,10 +7,9 @@ class FrameSixDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+        onPopInvoked: (tru) async {
           Navigator.pushNamed(context, AppRoutes.frameOneScreen);
-          return true;
         },
         child: Container(
           width: getHorizontalSize(
