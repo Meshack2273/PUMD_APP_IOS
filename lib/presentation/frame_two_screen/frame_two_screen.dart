@@ -309,13 +309,15 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
                                                         onTapTxtGroupFour(
                                                             context);
                                                         // ApiCall.GetPdf();
-                                                      } else if (StaticControler
-                                                              .Status ==
-                                                          0) {
-                                                        StaticControler.localPath=await ApiCall.loadElgiPDF();
-                                                        onTapTxtGroupFour(
-                                                            context);
-                                                      } else {
+                                                      }
+                                                      // else if (StaticControler
+                                                      //         .Status ==
+                                                      //     0) {
+                                                      //   StaticControler.localPath=await ApiCall.loadElgiPDF();
+                                                      //   onTapTxtGroupFour(
+                                                      //       context);
+                                                      // }
+                                                      else {
                                                         foc = true;
                                                         Otp1.text = "";
                                                         Otp2.text = "";

@@ -14,4 +14,3 @@ final internetConection= await InternetConnectionChecker().hasConnection;
 
                                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Check your internet connection and try again")));
 
-                                                    }

@@ -214,6 +214,9 @@ int increement =2;
                             if (newValue == "En") {
                               StaticControler.localPath =
                               await ApiCall.loadElgiPDF();
+                              setState(() {
+                                print("");
+                              });
                               // await pdfController.loadDocument(
                               //     PdfDocument.openFile(
                               //         StaticControler.localPath));
