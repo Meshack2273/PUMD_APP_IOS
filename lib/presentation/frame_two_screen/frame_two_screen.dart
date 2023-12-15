@@ -600,7 +600,8 @@ class _FrameTwoScreenState extends State<FrameTwoScreen> {
   //   Navigator.pushNamed(context, AppRoutes.frameThreeScreen);
   // }
   onTapTxtGroupFour(BuildContext context) async {
-    // StaticControler.localPath = await ApiCall.loadPDF();
+    StaticControler.localPath = await ApiCall.loadPDF();
+    StaticControler.langList=await ApiCall.AvailableLanguage();
     // totalpage = await pdfController.pagesCount;
     // streamController.add(1);
     Navigator.push(

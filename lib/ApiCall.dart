@@ -341,17 +341,23 @@ class ApiCall {
   static loadPDF() async {
     var responce;
 
-    if (StaticControler.Language == "En") {
+    if (StaticControler.Language == "EN") {
       responce = await http.post(
           Uri.parse(
               "${StaticControler.URL}/ProductManual/GetPDF?fab=${StaticControler.fabnumber}.pdf"),
           headers: {
             'Authorization': await GetToc(),
           });
-    } else if (StaticControler.Language == "Fr") {
+    }
+    else if (StaticControler.Language == "FR") {
       responce = await http.post(Uri.parse(
           "https://myessayreview.com/wp-content/uploads/2019/08/E-book-of-30-sample-essays.pdf"));
-    } else {
+    }
+    else if (StaticControler.Language == "DU") {
+      responce = await http.post(Uri.parse(
+          "https://www.elgi.com/my/wp-content/uploads/2020/05/eg-series-50hz.pdf"));
+    }
+    else {
       responce = await http.post(
           Uri.parse(
               "${StaticControler.URL}/ProductManual/GetPDF?fab=${StaticControler.fabnumber}.pdf"),
@@ -462,6 +468,79 @@ class ApiCall {
       print(response.reasonPhrase);
     }
   }
+
+
+  static AvailableLanguage() async
+  {
+    print("Lang finding....");
+    var request=http.Request('POST', Uri.parse('${StaticControler.URL}/ProductManual/GetALLPDF'));
+    request.body = json.encode({
+      "fabNumber": ScreenOne.fabNum.text,
+    });
+    request.headers.addAll(
+        {'Authorization': await GetToc(), 'Content-Type': 'application/json'});
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      final langCODEList=[];
+      final langList=[];
+      var jsonRes = jsonDecode(await response.stream.bytesToString());
+      print("all pdf names $jsonRes");
+      final temp =["AQIS031834_En.pdf","AQIS031834_fr.pdf","AQIS031834_DU.pdf"];
+      for (int i=0;i<temp.length;i++)
+      {
+        langCODEList.add( temp[i].replaceAll("${ScreenOne.fabNum.text}_", "").replaceAll(".pdf", "").toUpperCase().trim());
+        String cleanedText = temp[i].replaceAll("${ScreenOne.fabNum.text}_", "").replaceAll(".pdf", "").toUpperCase().trim();
+
+
+        if (cleanedText == "EN") {
+          langList.add("English");
+        } else if (cleanedText == "FR") {
+          langList.add("French");
+        } else if (cleanedText == "DU") {
+          langList.add("Dutch");
+        } else if (cleanedText == "ES") {
+          langList.add("Spanish");
+        } else if (cleanedText == "IT") {
+          langList.add("Italian");
+        } else if (cleanedText == "CS") {
+          langList.add("Czech");
+        } else if (cleanedText == "BG") {
+          langList.add("Bulgarian");
+        } else if (cleanedText == "DA") {
+          langList.add("Danish");
+        } else if (cleanedText == "EL") {
+          langList.add("Greek");
+        } else if (cleanedText == "NL") {
+          langList.add("Dutch");
+        } else if (cleanedText == "NO") {
+          langList.add("Norwegian");
+        } else if (cleanedText == "PL") {
+          langList.add("Polish");
+        } else if (cleanedText == "PT") {
+          langList.add("Portuguese");
+        } else if (cleanedText == "RO") {
+          langList.add("Romanian");
+        } else if (cleanedText == "SV") {
+          langList.add("Swedish");
+        } else if (cleanedText == "TR") {
+          langList.add("Turkish");
+        } else if (cleanedText == "FI") {
+          langList.add("Finnish");
+        }
+
+
+      }
+      // final lang=temp.toString().replaceAll("${ScreenOne.fabNum.text}_", "").replaceAll(".pdf", "");
+      StaticControler.langList=await langList;
+      StaticControler.langCODEList=langCODEList;
+      print("languages $langList");
+      print("languages ${langList.runtimeType}");
+      return langList;
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
 
 // static PriEmail()async{
 //   //late List priEmail= ApiCall.otpTrig().tolist;

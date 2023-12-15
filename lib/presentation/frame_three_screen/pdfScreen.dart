@@ -51,6 +51,24 @@ Map<dynamic, dynamic> PdfLang = {
   "Fr": "French",
   "Du": "Dutch"
 };
+class LanguageDropdown {
+  final String id;
+  final String name;
+
+
+  LanguageDropdown({required this.id, required this.name});
+}
+
+
+List<LanguageDropdown> language_dropdown = [
+  for (int i = 0; i < StaticControler.langList.length; i++)
+    LanguageDropdown(
+      id: StaticControler.langCODEList[i],
+      name: StaticControler.langList[i],
+
+
+    )];
+LanguageDropdown? selectedItem;
 
 
 class PDFScreen extends StatefulWidget {
@@ -162,82 +180,119 @@ int increement =2;
                         borderRadius: BorderRadius.circular(32.0),
                         elevation: 20.0,
                         shadowColor: Colors.grey,
-                        child: DropdownButtonFormField2<dynamic>(
+                        child:
+                        DropdownButtonFormField2<LanguageDropdown>(
+                          value: selectedItem,
                           // value:int.parse(StaticControler.foundKeyForZone),
-                          value: "En",
                           decoration: InputDecoration(
+                            label: const Text("Language"),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             contentPadding: EdgeInsets.all(15),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(32.0)),
                           ),
                           isExpanded: true,
-                          items: PdfLang.entries
-                              .map((MapEntry<dynamic, dynamic> entry) {
-                            return DropdownMenuItem<String>(
-                              value: entry.key,
-                              child: Text(entry.value),
+                          items: language_dropdown
+                              .map((LanguageDropdown langDrop ) {
+                            return DropdownMenuItem<LanguageDropdown>(
+                              value: langDrop,
+                              child: Text(langDrop.name),
                             );
                           }).toList(),
 
 
-                          onChanged: (newValue) async {
-
+                          onChanged: (LanguageDropdown? newValue) async {
                             Navigator.pushNamed(context, AppRoutes.loding);
-                            increement=increement+1;
-
-                            StaticControler.Language = newValue;
+                            setState(() {
+                              selectedItem = newValue;
+                            });
+                            StaticControler.Language = newValue!.id;
                             print("language ${StaticControler.Language}");
-                            if (newValue == "Du") {
-
-                                StaticControler.localPath =
-                                await ApiCall.TestPDF();
-
-
-
-                              setState(() {
-
-                                print("pdf changed");
-
-                              });
-                              // await pdfController.loadDocument(
-                              //     PdfDocument.openFile(
-                              //         StaticControler.localPath));
-                              // streamControllerfortolalPage
-                              //     .add(await pdfController.pagesCount!);
-                              // streamControllerForPageInc
-                              //     .add(await pdfController.page!);
-
-
-                              // print(
-                              //     "page count onChanged ${await pdfController.pagesCount}");
-                            }
-                            if (newValue == "En") {
                               StaticControler.localPath =
-                              await ApiCall.loadElgiPDF();
-                              setState(() {
-                                print("");
-                              });
-                              // await pdfController.loadDocument(
-                              //     PdfDocument.openFile(
-                              //         StaticControler.localPath));
-                              // streamControllerfortolalPage
-                              //     .add(await pdfController.pagesCount!);
-                              // streamControllerForPageInc
-                              //     .add(await pdfController.page!);
-                              // print(
-                              //     "page count onChanged ${pdfController.pagesCount}");
-                            }
-                            if(newValue=="Fr")
-                              {
-                                StaticControler.localPath =
-                                await ApiCall.loadFRPDF();
-                                setState(() {
-                                  print("pdf changed");
-                                });
-                              }
+                              await ApiCall.loadPDF();
+setState(() {
+  print("hi");
+});
                             Navigator.pop(context);
                           }, //onchange
                         ),
+
+                        // .DropdownButtonFormField2<dynamic>(
+                        //   // value:int.parse(StaticControler.foundKeyForZone),
+                        //   value: "En",
+                        //   decoration: InputDecoration(
+                        //     contentPadding: EdgeInsets.all(15),
+                        //     border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(32.0)),
+                        //   ),
+                        //   isExpanded: true,
+                        //   items: PdfLang.entries
+                        //       .map((MapEntry<dynamic, dynamic> entry) {
+                        //     return DropdownMenuItem<String>(
+                        //       value: entry.key,
+                        //       child: Text(entry.value),
+                        //     );
+                        //   }).toList(),
+                        //
+                        //
+                        //   onChanged: (newValue) async {
+                        //
+                        //     Navigator.pushNamed(context, AppRoutes.loding);
+                        //     increement=increement+1;
+                        //
+                        //     StaticControler.Language = newValue;
+                        //     print("language ${StaticControler.Language}");
+                        //     if (newValue == "Du") {
+                        //
+                        //         StaticControler.localPath =
+                        //         await ApiCall.TestPDF();
+                        //
+                        //
+                        //
+                        //       setState(() {
+                        //
+                        //         print("pdf changed");
+                        //
+                        //       });
+                        //       // await pdfController.loadDocument(
+                        //       //     PdfDocument.openFile(
+                        //       //         StaticControler.localPath));
+                        //       // streamControllerfortolalPage
+                        //       //     .add(await pdfController.pagesCount!);
+                        //       // streamControllerForPageInc
+                        //       //     .add(await pdfController.page!);
+                        //
+                        //
+                        //       // print(
+                        //       //     "page count onChanged ${await pdfController.pagesCount}");
+                        //     }
+                        //     if (newValue == "En") {
+                        //       StaticControler.localPath =
+                        //       await ApiCall.loadElgiPDF();
+                        //       setState(() {
+                        //         print("");
+                        //       });
+                        //       // await pdfController.loadDocument(
+                        //       //     PdfDocument.openFile(
+                        //       //         StaticControler.localPath));
+                        //       // streamControllerfortolalPage
+                        //       //     .add(await pdfController.pagesCount!);
+                        //       // streamControllerForPageInc
+                        //       //     .add(await pdfController.page!);
+                        //       // print(
+                        //       //     "page count onChanged ${pdfController.pagesCount}");
+                        //     }
+                        //     if(newValue=="Fr")
+                        //       {
+                        //         StaticControler.localPath =
+                        //         await ApiCall.loadFRPDF();
+                        //         setState(() {
+                        //           print("pdf changed");
+                        //         });
+                        //       }
+                        //     Navigator.pop(context);
+                        //   }, //onchange
+                        // ),
                       ),
                     )
                     )],

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_secure_screen/flutter_secure_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pdfx/pdfx.dart';
 
@@ -217,7 +218,10 @@ class _State extends State<FrameOneScreen> {
                   margin: EdgeInsets.all(5),
                 ));
               } else {
-                StaticControler.localPath = await ApiCall.loadElgiPDF();
+                disable(context);
+                StaticControler.localPath = await ApiCall.loadPDF();
+                StaticControler.langList=await ApiCall.AvailableLanguage();
+
                 // totalpage = await pdfController.pagesCount;
 
                 // pdfController = PdfController(
@@ -568,10 +572,12 @@ class _State extends State<FrameOneScreen> {
                                                             EdgeInsets.all(5),
                                                       ));
                                                     } else {
+                                                      disable(context);
                                                       StaticControler
                                                               .localPath =
                                                           await ApiCall
-                                                              .loadElgiPDF();
+                                                              .loadPDF();
+                                                      StaticControler.langList=await ApiCall.AvailableLanguage();
                                                       // totalpage = await pdfController.pagesCount;
                                                       //
                                                       // pdfController = PdfController(
@@ -753,6 +759,9 @@ class _State extends State<FrameOneScreen> {
   onStay(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.frameOneScreen);
   }
+  disable(BuildContext context) async {
+    await FlutterSecureScreen.singleton.setAndroidScreenSecure(true);
+  }
 
   // showLoaderDialog(BuildContext context){
   //   AlertDialog alert=AlertDialog(
@@ -890,44 +899,97 @@ class _State extends State<FrameOneScreen> {
           }
           return CupertinoAlertDialog(
             title: Text(
-              "New Asset",
+              "Alert",
               style: TextStyle(
                   color: HexColor("#ee3124"), fontWeight: FontWeight.bold),
             ),
-            content: const Text(
-              'The given FAB number is not registered. Do you want to register ? ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+            content:  RichText(
+                text:  TextSpan(text: "       The given FAB number is not registered. Please contact with",
+                  style:  const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(text: ' ELGI', style: TextStyle(fontWeight: FontWeight.bold,color:HexColor("#ee3124"))),
+                  ],
+                )
             ),
             actions: <Widget>[
               TextButton(
                 child: const Text(
-                  "No",
+                  "OK",
                   style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
-              TextButton(
-                child: const Text("Yes", style: TextStyle(color: Colors.black)),
-                onPressed: () async {
-                  // ApiCall.GetCountry();
-
-                  Navigator.pushNamed(context, AppRoutes.loding);
-                  // ScreenFour.currentSelectedValue="";
-                  // // ApiCall.otpTrig();
-                  // ScreenFour.SelectTed="";
-
-                  List Country = await ApiCall.GetCountry();
-                  print(Country);
-
-                  onTapNewAsset(context);
-                },
-              )
+              // TextButton(
+              //   child: const Text("Yes", style: TextStyle(color: Colors.black)),
+              //   onPressed: () async {
+              //     // ApiCall.GetCountry();
+              //
+              //     Navigator.pushNamed(context, AppRoutes.loding);
+              //     // ScreenFour.currentSelectedValue="";
+              //     // // ApiCall.otpTrig();
+              //     // ScreenFour.SelectTed="";
+              //
+              //     List Country = await ApiCall.GetCountry();
+              //     print(Country);
+              //
+              //     onTapNewAsset(context);
+              //   },
+              // )
             ],
           );
         });
   }
+
+  // Alert() {
+  //   showCupertinoDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (_) {
+  //         if (EmailOtp == "Not Found") {
+  //           Navigator.pop(context);
+  //         }
+  //         return CupertinoAlertDialog(
+  //           title: Text(
+  //             "New Asset",
+  //             style: TextStyle(
+  //                 color: HexColor("#ee3124"), fontWeight: FontWeight.bold),
+  //           ),
+  //           content: const Text(
+  //             'The given FAB number is not registered. Do you want to register ? ',
+  //             style: TextStyle(fontWeight: FontWeight.bold),
+  //           ),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               child: const Text(
+  //                 "No",
+  //                 style: TextStyle(color: Colors.black),
+  //               ),
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             ),
+  //             TextButton(
+  //               child: const Text("Yes", style: TextStyle(color: Colors.black)),
+  //               onPressed: () async {
+  //                 // ApiCall.GetCountry();
+  //
+  //                 Navigator.pushNamed(context, AppRoutes.loding);
+  //                 // ScreenFour.currentSelectedValue="";
+  //                 // // ApiCall.otpTrig();
+  //                 // ScreenFour.SelectTed="";
+  //
+  //                 List Country = await ApiCall.GetCountry();
+  //                 print(Country);
+  //
+  //                 onTapNewAsset(context);
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   service() {
     showCupertinoDialog(

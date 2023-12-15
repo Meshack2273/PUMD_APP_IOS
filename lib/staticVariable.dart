@@ -14,6 +14,8 @@ class StaticControler {
   static int integerforpdf = 1;
   static String SearchPage = "0";
   static String Language = "0";
+  static List langList=[];
+  static List langCODEList=[];
   // static String URL = "https://airapi.elgi.com";
   static String URL = "http://airapi.elgi.com";
   static String reason = "";
